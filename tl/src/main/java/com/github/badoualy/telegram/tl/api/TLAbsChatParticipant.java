@@ -15,16 +15,16 @@ import com.github.badoualy.telegram.tl.core.TLObject;
  */
 public abstract class TLAbsChatParticipant extends TLObject {
 
-    protected int userId;
+    protected long userId;
 
     public TLAbsChatParticipant() {
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 }

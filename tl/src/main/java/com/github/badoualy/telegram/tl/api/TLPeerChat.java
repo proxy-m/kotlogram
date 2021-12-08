@@ -6,8 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import static com.github.badoualy.telegram.tl.StreamUtils.readInt;
-import static com.github.badoualy.telegram.tl.StreamUtils.writeInt;
+import static com.github.badoualy.telegram.tl.StreamUtils.readLong;
+import static com.github.badoualy.telegram.tl.StreamUtils.writeLong;
 import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_CONSTRUCTOR_ID;
 import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_INT32;
 
@@ -19,26 +19,26 @@ public class TLPeerChat extends TLAbsPeer {
 
     public static final int CONSTRUCTOR_ID = 0xbad0e5bb;
 
-    protected int chatId;
+    protected long chatId;
 
     private final String _constructor = "peerChat#bad0e5bb";
 
     public TLPeerChat() {
     }
 
-    public TLPeerChat(int chatId) {
+    public TLPeerChat(long chatId) {
         this.chatId = chatId;
     }
 
     @Override
     public void serializeBody(OutputStream stream) throws IOException {
-        writeInt(chatId, stream);
+        writeLong(chatId, stream);
     }
 
     @Override
     @SuppressWarnings({"unchecked", "SimplifiableConditionalExpression"})
     public void deserializeBody(InputStream stream, TLContext context) throws IOException {
-        chatId = readInt(stream);
+        chatId = readLong(stream);
     }
 
     @Override
@@ -58,11 +58,11 @@ public class TLPeerChat extends TLAbsPeer {
         return CONSTRUCTOR_ID;
     }
 
-    public int getChatId() {
+    public long getChatId() {
         return chatId;
     }
 
-    public void setChatId(int chatId) {
+    public void setChatId(long chatId) {
         this.chatId = chatId;
     }
 }

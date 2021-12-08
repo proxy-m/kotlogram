@@ -7,9 +7,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import static com.github.badoualy.telegram.tl.StreamUtils.readInt;
+import static com.github.badoualy.telegram.tl.StreamUtils.readLong;
 import static com.github.badoualy.telegram.tl.StreamUtils.readTLObject;
 import static com.github.badoualy.telegram.tl.StreamUtils.readTLString;
 import static com.github.badoualy.telegram.tl.StreamUtils.writeInt;
+import static com.github.badoualy.telegram.tl.StreamUtils.writeLong;
 import static com.github.badoualy.telegram.tl.StreamUtils.writeString;
 import static com.github.badoualy.telegram.tl.StreamUtils.writeTLObject;
 import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_CONSTRUCTOR_ID;
@@ -55,7 +57,7 @@ public class TLChat extends TLAbsChat {
     public TLChat() {
     }
 
-    public TLChat(boolean creator, boolean kicked, boolean left, boolean adminsEnabled, boolean admin, boolean deactivated, int id, String title, TLAbsChatPhoto photo, int participantsCount, int date, int version, TLAbsInputChannel migratedTo) {
+    public TLChat(boolean creator, boolean kicked, boolean left, boolean adminsEnabled, boolean admin, boolean deactivated, long id, String title, TLAbsChatPhoto photo, int participantsCount, int date, int version, TLAbsInputChannel migratedTo) {
         this.creator = creator;
         this.kicked = kicked;
         this.left = left;
@@ -87,7 +89,7 @@ public class TLChat extends TLAbsChat {
         computeFlags();
 
         writeInt(flags, stream);
-        writeInt(id, stream);
+        writeLong(id, stream);
         writeString(title, stream);
         writeTLObject(photo, stream);
         writeInt(participantsCount, stream);
@@ -109,7 +111,7 @@ public class TLChat extends TLAbsChat {
         adminsEnabled = (flags & 8) != 0;
         admin = (flags & 16) != 0;
         deactivated = (flags & 32) != 0;
-        id = readInt(stream);
+        id = readLong(stream);
         title = readTLString(stream);
         photo = readTLObject(stream, context, TLAbsChatPhoto.class, -1);
         participantsCount = readInt(stream);
@@ -195,11 +197,11 @@ public class TLChat extends TLAbsChat {
         this.deactivated = deactivated;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

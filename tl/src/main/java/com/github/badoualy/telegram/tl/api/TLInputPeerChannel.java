@@ -6,9 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import static com.github.badoualy.telegram.tl.StreamUtils.readInt;
 import static com.github.badoualy.telegram.tl.StreamUtils.readLong;
-import static com.github.badoualy.telegram.tl.StreamUtils.writeInt;
 import static com.github.badoualy.telegram.tl.StreamUtils.writeLong;
 import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_CONSTRUCTOR_ID;
 import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_INT32;
@@ -22,7 +20,7 @@ public class TLInputPeerChannel extends TLAbsInputPeer {
 
     public static final int CONSTRUCTOR_ID = 0x20adaef8;
 
-    protected int channelId;
+    protected long channelId;
 
     protected long accessHash;
 
@@ -31,21 +29,21 @@ public class TLInputPeerChannel extends TLAbsInputPeer {
     public TLInputPeerChannel() {
     }
 
-    public TLInputPeerChannel(int channelId, long accessHash) {
+    public TLInputPeerChannel(long channelId, long accessHash) {
         this.channelId = channelId;
         this.accessHash = accessHash;
     }
 
     @Override
     public void serializeBody(OutputStream stream) throws IOException {
-        writeInt(channelId, stream);
+        writeLong(channelId, stream);
         writeLong(accessHash, stream);
     }
 
     @Override
     @SuppressWarnings({"unchecked", "SimplifiableConditionalExpression"})
     public void deserializeBody(InputStream stream, TLContext context) throws IOException {
-        channelId = readInt(stream);
+        channelId = readLong(stream);
         accessHash = readLong(stream);
     }
 
@@ -67,11 +65,11 @@ public class TLInputPeerChannel extends TLAbsInputPeer {
         return CONSTRUCTOR_ID;
     }
 
-    public int getChannelId() {
+    public long getChannelId() {
         return channelId;
     }
 
-    public void setChannelId(int channelId) {
+    public void setChannelId(long channelId) {
         this.channelId = channelId;
     }
 

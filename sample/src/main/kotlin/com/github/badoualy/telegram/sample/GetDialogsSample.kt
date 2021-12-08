@@ -27,7 +27,7 @@ object GetDialogsSample {
             val tlAbsDialogs = client.messagesGetDialogs(true, 0, 0, TLInputPeerEmpty(), count)
 
             // Create a map of id to name map
-            val nameMap = HashMap<Int, String>()
+            val nameMap = HashMap<Long, String>()
             tlAbsDialogs.users.filterIsInstance<TLUser>()
                     .map { Pair(it.id, "${it.firstName} ${it.lastName}") }
                     .toMap(nameMap)

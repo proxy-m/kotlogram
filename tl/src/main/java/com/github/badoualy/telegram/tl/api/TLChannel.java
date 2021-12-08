@@ -72,7 +72,7 @@ public class TLChannel extends TLAbsChat {
     public TLChannel() {
     }
 
-    public TLChannel(boolean creator, boolean kicked, boolean left, boolean editor, boolean moderator, boolean broadcast, boolean verified, boolean megagroup, boolean restricted, boolean democracy, boolean signatures, boolean min, int id, Long accessHash, String title, String username, TLAbsChatPhoto photo, int date, int version, String restrictionReason) {
+    public TLChannel(boolean creator, boolean kicked, boolean left, boolean editor, boolean moderator, boolean broadcast, boolean verified, boolean megagroup, boolean restricted, boolean democracy, boolean signatures, boolean min, long id, Long accessHash, String title, String username, TLAbsChatPhoto photo, int date, int version, String restrictionReason) {
         this.creator = creator;
         this.kicked = kicked;
         this.left = left;
@@ -122,7 +122,7 @@ public class TLChannel extends TLAbsChat {
         computeFlags();
 
         writeInt(flags, stream);
-        writeInt(id, stream);
+        writeLong(id, stream);
         if ((flags & 8192) != 0) {
             if (accessHash == null) throwNullFieldException("accessHash", flags);
             writeLong(accessHash, stream);
@@ -157,7 +157,7 @@ public class TLChannel extends TLAbsChat {
         democracy = (flags & 1024) != 0;
         signatures = (flags & 2048) != 0;
         min = (flags & 4096) != 0;
-        id = readInt(stream);
+        id = readLong(stream);
         accessHash = (flags & 8192) != 0 ? readLong(stream) : null;
         title = readTLString(stream);
         username = (flags & 64) != 0 ? readTLString(stream) : null;
@@ -299,11 +299,11 @@ public class TLChannel extends TLAbsChat {
         this.min = min;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

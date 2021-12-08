@@ -78,7 +78,7 @@ public class TLUser extends TLAbsUser {
     public TLUser() {
     }
 
-    public TLUser(boolean self, boolean contact, boolean mutualContact, boolean deleted, boolean bot, boolean botChatHistory, boolean botNochats, boolean verified, boolean restricted, boolean min, boolean botInlineGeo, int id, Long accessHash, String firstName, String lastName, String username, String phone, TLAbsUserProfilePhoto photo, TLAbsUserStatus status, Integer botInfoVersion, String restrictionReason, String botInlinePlaceholder, String langCode) {
+    public TLUser(boolean self, boolean contact, boolean mutualContact, boolean deleted, boolean bot, boolean botChatHistory, boolean botNochats, boolean verified, boolean restricted, boolean min, boolean botInlineGeo, long id, Long accessHash, String firstName, String lastName, String username, String phone, TLAbsUserProfilePhoto photo, TLAbsUserStatus status, Integer botInfoVersion, String restrictionReason, String botInlinePlaceholder, String langCode) {
         this.self = self;
         this.contact = contact;
         this.mutualContact = mutualContact;
@@ -139,7 +139,7 @@ public class TLUser extends TLAbsUser {
         computeFlags();
 
         writeInt(flags, stream);
-        writeInt(id, stream);
+        writeLong(id, stream);
         if ((flags & 1) != 0) {
             if (accessHash == null) throwNullFieldException("accessHash", flags);
             writeLong(accessHash, stream);
@@ -201,7 +201,7 @@ public class TLUser extends TLAbsUser {
         restricted = (flags & 262144) != 0;
         min = (flags & 1048576) != 0;
         botInlineGeo = (flags & 2097152) != 0;
-        id = readInt(stream);
+        id = readLong(stream);
         accessHash = (flags & 1) != 0 ? readLong(stream) : null;
         firstName = (flags & 2) != 0 ? readTLString(stream) : null;
         lastName = (flags & 4) != 0 ? readTLString(stream) : null;
@@ -367,11 +367,11 @@ public class TLUser extends TLAbsUser {
         this.botInlineGeo = botInlineGeo;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

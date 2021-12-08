@@ -17,16 +17,16 @@ import com.github.badoualy.telegram.tl.core.TLObject;
  */
 public abstract class TLAbsChat extends TLObject {
 
-    protected int id;
+    protected long id;
 
     public TLAbsChat() {
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 }
