@@ -10,11 +10,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import static com.github.badoualy.telegram.tl.StreamUtils.readInt;
+import static com.github.badoualy.telegram.tl.StreamUtils.readLong;
 import static com.github.badoualy.telegram.tl.StreamUtils.readTLBool;
 import static com.github.badoualy.telegram.tl.StreamUtils.readTLObject;
 import static com.github.badoualy.telegram.tl.StreamUtils.writeBoolean;
-import static com.github.badoualy.telegram.tl.StreamUtils.writeInt;
+import static com.github.badoualy.telegram.tl.StreamUtils.writeLong;
 import static com.github.badoualy.telegram.tl.StreamUtils.writeTLObject;
 import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_BOOLEAN;
 import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_CONSTRUCTOR_ID;
@@ -28,7 +28,7 @@ public class TLRequestMessagesEditChatAdmin extends TLMethod<TLBool> {
 
     public static final int CONSTRUCTOR_ID = 0xa9e69f2e;
 
-    protected int chatId;
+    protected long chatId;
 
     protected TLAbsInputUser userId;
 
@@ -39,7 +39,7 @@ public class TLRequestMessagesEditChatAdmin extends TLMethod<TLBool> {
     public TLRequestMessagesEditChatAdmin() {
     }
 
-    public TLRequestMessagesEditChatAdmin(int chatId, TLAbsInputUser userId, boolean isAdmin) {
+    public TLRequestMessagesEditChatAdmin(long chatId, TLAbsInputUser userId, boolean isAdmin) {
         this.chatId = chatId;
         this.userId = userId;
         this.isAdmin = isAdmin;
@@ -62,7 +62,7 @@ public class TLRequestMessagesEditChatAdmin extends TLMethod<TLBool> {
 
     @Override
     public void serializeBody(OutputStream stream) throws IOException {
-        writeInt(chatId, stream);
+        writeLong(chatId, stream);
         writeTLObject(userId, stream);
         writeBoolean(isAdmin, stream);
     }
@@ -70,7 +70,7 @@ public class TLRequestMessagesEditChatAdmin extends TLMethod<TLBool> {
     @Override
     @SuppressWarnings({"unchecked", "SimplifiableConditionalExpression"})
     public void deserializeBody(InputStream stream, TLContext context) throws IOException {
-        chatId = readInt(stream);
+        chatId = readLong(stream);
         userId = readTLObject(stream, context, TLAbsInputUser.class, -1);
         isAdmin = readTLBool(stream);
     }
@@ -94,11 +94,11 @@ public class TLRequestMessagesEditChatAdmin extends TLMethod<TLBool> {
         return CONSTRUCTOR_ID;
     }
 
-    public int getChatId() {
+    public long getChatId() {
         return chatId;
     }
 
-    public void setChatId(int chatId) {
+    public void setChatId(long chatId) {
         this.chatId = chatId;
     }
 

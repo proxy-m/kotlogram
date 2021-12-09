@@ -9,9 +9,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import static com.github.badoualy.telegram.tl.StreamUtils.readInt;
+import static com.github.badoualy.telegram.tl.StreamUtils.readLong;
 import static com.github.badoualy.telegram.tl.StreamUtils.readTLVector;
-import static com.github.badoualy.telegram.tl.StreamUtils.writeInt;
+import static com.github.badoualy.telegram.tl.StreamUtils.writeLong;
 import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_CONSTRUCTOR_ID;
 import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_INT32;
 
@@ -23,14 +23,14 @@ public class TLRequestMessagesReceivedMessages extends TLMethod<TLVector<TLRecei
 
     public static final int CONSTRUCTOR_ID = 0x5a954c0;
 
-    protected int maxId;
+    protected long maxId;
 
     private final String _constructor = "messages.receivedMessages#5a954c0";
 
     public TLRequestMessagesReceivedMessages() {
     }
 
-    public TLRequestMessagesReceivedMessages(int maxId) {
+    public TLRequestMessagesReceivedMessages(long maxId) {
         this.maxId = maxId;
     }
 
@@ -42,13 +42,13 @@ public class TLRequestMessagesReceivedMessages extends TLMethod<TLVector<TLRecei
 
     @Override
     public void serializeBody(OutputStream stream) throws IOException {
-        writeInt(maxId, stream);
+        writeLong(maxId, stream);
     }
 
     @Override
     @SuppressWarnings({"unchecked", "SimplifiableConditionalExpression"})
     public void deserializeBody(InputStream stream, TLContext context) throws IOException {
-        maxId = readInt(stream);
+        maxId = readLong(stream);
     }
 
     @Override
@@ -68,11 +68,11 @@ public class TLRequestMessagesReceivedMessages extends TLMethod<TLVector<TLRecei
         return CONSTRUCTOR_ID;
     }
 
-    public int getMaxId() {
+    public long getMaxId() {
         return maxId;
     }
 
-    public void setMaxId(int maxId) {
+    public void setMaxId(long maxId) {
         this.maxId = maxId;
     }
 }

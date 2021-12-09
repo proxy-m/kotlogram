@@ -11,9 +11,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import static com.github.badoualy.telegram.tl.StreamUtils.readInt;
+import static com.github.badoualy.telegram.tl.StreamUtils.readLong;
 import static com.github.badoualy.telegram.tl.StreamUtils.readTLObject;
-import static com.github.badoualy.telegram.tl.StreamUtils.writeInt;
+import static com.github.badoualy.telegram.tl.StreamUtils.writeLong;
 import static com.github.badoualy.telegram.tl.StreamUtils.writeTLObject;
 import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_CONSTRUCTOR_ID;
 import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_INT32;
@@ -28,7 +28,7 @@ public class TLRequestMessagesGetGameHighScores extends TLMethod<TLHighScores> {
 
     protected TLAbsInputPeer peer;
 
-    protected int id;
+    protected long id;
 
     protected TLAbsInputUser userId;
 
@@ -37,7 +37,7 @@ public class TLRequestMessagesGetGameHighScores extends TLMethod<TLHighScores> {
     public TLRequestMessagesGetGameHighScores() {
     }
 
-    public TLRequestMessagesGetGameHighScores(TLAbsInputPeer peer, int id, TLAbsInputUser userId) {
+    public TLRequestMessagesGetGameHighScores(TLAbsInputPeer peer, long id, TLAbsInputUser userId) {
         this.peer = peer;
         this.id = id;
         this.userId = userId;
@@ -61,7 +61,7 @@ public class TLRequestMessagesGetGameHighScores extends TLMethod<TLHighScores> {
     @Override
     public void serializeBody(OutputStream stream) throws IOException {
         writeTLObject(peer, stream);
-        writeInt(id, stream);
+        writeLong(id, stream);
         writeTLObject(userId, stream);
     }
 
@@ -69,7 +69,7 @@ public class TLRequestMessagesGetGameHighScores extends TLMethod<TLHighScores> {
     @SuppressWarnings({"unchecked", "SimplifiableConditionalExpression"})
     public void deserializeBody(InputStream stream, TLContext context) throws IOException {
         peer = readTLObject(stream, context, TLAbsInputPeer.class, -1);
-        id = readInt(stream);
+        id = readLong(stream);
         userId = readTLObject(stream, context, TLAbsInputUser.class, -1);
     }
 
@@ -100,11 +100,11 @@ public class TLRequestMessagesGetGameHighScores extends TLMethod<TLHighScores> {
         this.peer = peer;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

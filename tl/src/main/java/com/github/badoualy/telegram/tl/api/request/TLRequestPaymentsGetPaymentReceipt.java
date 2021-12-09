@@ -9,9 +9,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import static com.github.badoualy.telegram.tl.StreamUtils.readInt;
+import static com.github.badoualy.telegram.tl.StreamUtils.readLong;
 import static com.github.badoualy.telegram.tl.StreamUtils.readTLObject;
-import static com.github.badoualy.telegram.tl.StreamUtils.writeInt;
+import static com.github.badoualy.telegram.tl.StreamUtils.writeLong;
 import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_CONSTRUCTOR_ID;
 import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_INT32;
 
@@ -23,14 +23,14 @@ public class TLRequestPaymentsGetPaymentReceipt extends TLMethod<TLPaymentReceip
 
     public static final int CONSTRUCTOR_ID = 0xa092a980;
 
-    protected int msgId;
+    protected long msgId;
 
     private final String _constructor = "payments.getPaymentReceipt#a092a980";
 
     public TLRequestPaymentsGetPaymentReceipt() {
     }
 
-    public TLRequestPaymentsGetPaymentReceipt(int msgId) {
+    public TLRequestPaymentsGetPaymentReceipt(long msgId) {
         this.msgId = msgId;
     }
 
@@ -51,13 +51,13 @@ public class TLRequestPaymentsGetPaymentReceipt extends TLMethod<TLPaymentReceip
 
     @Override
     public void serializeBody(OutputStream stream) throws IOException {
-        writeInt(msgId, stream);
+        writeLong(msgId, stream);
     }
 
     @Override
     @SuppressWarnings({"unchecked", "SimplifiableConditionalExpression"})
     public void deserializeBody(InputStream stream, TLContext context) throws IOException {
-        msgId = readInt(stream);
+        msgId = readLong(stream);
     }
 
     @Override
@@ -77,11 +77,11 @@ public class TLRequestPaymentsGetPaymentReceipt extends TLMethod<TLPaymentReceip
         return CONSTRUCTOR_ID;
     }
 
-    public int getMsgId() {
+    public long getMsgId() {
         return msgId;
     }
 
-    public void setMsgId(int msgId) {
+    public void setMsgId(long msgId) {
         this.msgId = msgId;
     }
 }

@@ -286,7 +286,7 @@ public interface TelegramApi {
 
     TLAbsEncryptedChat messagesAcceptEncryption(TLInputEncryptedChat peer, TLBytes gB, long keyFingerprint) throws RpcErrorException, IOException;
 
-    TLAbsUpdates messagesAddChatUser(int chatId, TLAbsInputUser userId, int fwdLimit) throws RpcErrorException, IOException;
+    TLAbsUpdates messagesAddChatUser(long chatId, TLAbsInputUser userId, int fwdLimit) throws RpcErrorException, IOException;
 
     TLAbsChatInvite messagesCheckChatInvite(String hash) throws RpcErrorException, IOException;
 
@@ -294,25 +294,25 @@ public interface TelegramApi {
 
     TLAbsUpdates messagesCreateChat(TLVector<TLAbsInputUser> users, String title) throws RpcErrorException, IOException;
 
-    TLAbsUpdates messagesDeleteChatUser(int chatId, TLAbsInputUser userId) throws RpcErrorException, IOException;
+    TLAbsUpdates messagesDeleteChatUser(long chatId, TLAbsInputUser userId) throws RpcErrorException, IOException;
 
     TLAffectedHistory messagesDeleteHistory(boolean justClear, TLAbsInputPeer peer, int maxId) throws RpcErrorException, IOException;
 
     TLAffectedMessages messagesDeleteMessages(boolean revoke, TLIntVector id) throws RpcErrorException, IOException;
 
-    TLBool messagesDiscardEncryption(int chatId) throws RpcErrorException, IOException;
+    TLBool messagesDiscardEncryption(long chatId) throws RpcErrorException, IOException;
 
-    TLBool messagesEditChatAdmin(int chatId, TLAbsInputUser userId, boolean isAdmin) throws RpcErrorException, IOException;
+    TLBool messagesEditChatAdmin(long chatId, TLAbsInputUser userId, boolean isAdmin) throws RpcErrorException, IOException;
 
-    TLAbsUpdates messagesEditChatPhoto(int chatId, TLAbsInputChatPhoto photo) throws RpcErrorException, IOException;
+    TLAbsUpdates messagesEditChatPhoto(long chatId, TLAbsInputChatPhoto photo) throws RpcErrorException, IOException;
 
-    TLAbsUpdates messagesEditChatTitle(int chatId, String title) throws RpcErrorException, IOException;
+    TLAbsUpdates messagesEditChatTitle(long chatId, String title) throws RpcErrorException, IOException;
 
     TLBool messagesEditInlineBotMessage(boolean noWebpage, TLInputBotInlineMessageID id, String message, TLAbsReplyMarkup replyMarkup, TLVector<TLAbsMessageEntity> entities) throws RpcErrorException, IOException;
 
     TLAbsUpdates messagesEditMessage(boolean noWebpage, TLAbsInputPeer peer, int id, String message, TLAbsReplyMarkup replyMarkup, TLVector<TLAbsMessageEntity> entities) throws RpcErrorException, IOException;
 
-    TLAbsExportedChatInvite messagesExportChatInvite(int chatId) throws RpcErrorException, IOException;
+    TLAbsExportedChatInvite messagesExportChatInvite(long chatId) throws RpcErrorException, IOException;
 
     TLAbsUpdates messagesForwardMessage(TLAbsInputPeer peer, int id, long randomId) throws RpcErrorException, IOException;
 
@@ -342,11 +342,11 @@ public interface TelegramApi {
 
     TLAbsFeaturedStickers messagesGetFeaturedStickers(int hash) throws RpcErrorException, IOException;
 
-    TLChatFull messagesGetFullChat(int chatId) throws RpcErrorException, IOException;
+    TLChatFull messagesGetFullChat(long chatId) throws RpcErrorException, IOException;
 
-    TLHighScores messagesGetGameHighScores(TLAbsInputPeer peer, int id, TLAbsInputUser userId) throws RpcErrorException, IOException;
+    TLHighScores messagesGetGameHighScores(TLAbsInputPeer peer, long id, TLAbsInputUser userId) throws RpcErrorException, IOException;
 
-    TLAbsMessages messagesGetHistory(TLAbsInputPeer peer, int offsetId, int offsetDate, int addOffset, int limit, int maxId, int minId) throws RpcErrorException, IOException;
+    TLAbsMessages messagesGetHistory(TLAbsInputPeer peer, long offsetId, int offsetDate, int addOffset, int limit, long maxId, long minId) throws RpcErrorException, IOException;
 
     TLBotResults messagesGetInlineBotResults(TLAbsInputUser bot, TLAbsInputPeer peer, TLAbsInputGeoPoint geoPoint, String query, String offset) throws RpcErrorException, IOException;
 
@@ -382,17 +382,17 @@ public interface TelegramApi {
 
     TLAbsStickerSetInstallResult messagesInstallStickerSet(TLAbsInputStickerSet stickerset, boolean archived) throws RpcErrorException, IOException;
 
-    TLAbsUpdates messagesMigrateChat(int chatId) throws RpcErrorException, IOException;
+    TLAbsUpdates messagesMigrateChat(long chatId) throws RpcErrorException, IOException;
 
     TLBool messagesReadEncryptedHistory(TLInputEncryptedChat peer, int maxDate) throws RpcErrorException, IOException;
 
     TLBool messagesReadFeaturedStickers(TLLongVector id) throws RpcErrorException, IOException;
 
-    TLAffectedMessages messagesReadHistory(TLAbsInputPeer peer, int maxId) throws RpcErrorException, IOException;
+    TLAffectedMessages messagesReadHistory(TLAbsInputPeer peer, long maxId) throws RpcErrorException, IOException;
 
     TLAffectedMessages messagesReadMessageContents(TLIntVector id) throws RpcErrorException, IOException;
 
-    TLVector<TLReceivedNotifyMessage> messagesReceivedMessages(int maxId) throws RpcErrorException, IOException;
+    TLVector<TLReceivedNotifyMessage> messagesReceivedMessages(long maxId) throws RpcErrorException, IOException;
 
     TLLongVector messagesReceivedQueue(int maxQts) throws RpcErrorException, IOException;
 
@@ -404,7 +404,7 @@ public interface TelegramApi {
 
     TLBool messagesReportSpam(TLAbsInputPeer peer) throws RpcErrorException, IOException;
 
-    TLAbsEncryptedChat messagesRequestEncryption(TLAbsInputUser userId, int randomId, TLBytes gA) throws RpcErrorException, IOException;
+    TLAbsEncryptedChat messagesRequestEncryption(TLAbsInputUser userId, long randomId, TLBytes gA) throws RpcErrorException, IOException;
 
     TLBool messagesSaveDraft(boolean noWebpage, Integer replyToMsgId, TLAbsInputPeer peer, String message, TLVector<TLAbsMessageEntity> entities) throws RpcErrorException, IOException;
 
@@ -448,7 +448,7 @@ public interface TelegramApi {
 
     TLAbsUpdates messagesStartBot(TLAbsInputUser bot, TLAbsInputPeer peer, long randomId, String startParam) throws RpcErrorException, IOException;
 
-    TLAbsUpdates messagesToggleChatAdmins(int chatId, boolean enabled) throws RpcErrorException, IOException;
+    TLAbsUpdates messagesToggleChatAdmins(long chatId, boolean enabled) throws RpcErrorException, IOException;
 
     TLBool messagesToggleDialogPin(boolean pinned, TLAbsInputPeer peer) throws RpcErrorException, IOException;
 
@@ -456,15 +456,15 @@ public interface TelegramApi {
 
     TLBool paymentsClearSavedInfo(boolean credentials, boolean info) throws RpcErrorException, IOException;
 
-    TLPaymentForm paymentsGetPaymentForm(int msgId) throws RpcErrorException, IOException;
+    TLPaymentForm paymentsGetPaymentForm(long msgId) throws RpcErrorException, IOException;
 
-    TLPaymentReceipt paymentsGetPaymentReceipt(int msgId) throws RpcErrorException, IOException;
+    TLPaymentReceipt paymentsGetPaymentReceipt(long msgId) throws RpcErrorException, IOException;
 
     TLSavedInfo paymentsGetSavedInfo() throws RpcErrorException, IOException;
 
-    TLAbsPaymentResult paymentsSendPaymentForm(int msgId, String requestedInfoId, String shippingOptionId, TLAbsInputPaymentCredentials credentials) throws RpcErrorException, IOException;
+    TLAbsPaymentResult paymentsSendPaymentForm(long msgId, String requestedInfoId, String shippingOptionId, TLAbsInputPaymentCredentials credentials) throws RpcErrorException, IOException;
 
-    TLValidatedRequestedInfo paymentsValidateRequestedInfo(boolean save, int msgId, TLPaymentRequestedInfo info) throws RpcErrorException, IOException;
+    TLValidatedRequestedInfo paymentsValidateRequestedInfo(boolean save, long msgId, TLPaymentRequestedInfo info) throws RpcErrorException, IOException;
 
     TLPhoneCall phoneAcceptCall(TLInputPhoneCall peer, TLBytes gB, TLPhoneCallProtocol protocol) throws RpcErrorException, IOException;
 

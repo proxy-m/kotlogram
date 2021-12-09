@@ -10,9 +10,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import static com.github.badoualy.telegram.tl.StreamUtils.readInt;
+import static com.github.badoualy.telegram.tl.StreamUtils.readLong;
 import static com.github.badoualy.telegram.tl.StreamUtils.readTLObject;
-import static com.github.badoualy.telegram.tl.StreamUtils.writeInt;
+import static com.github.badoualy.telegram.tl.StreamUtils.writeLong;
 import static com.github.badoualy.telegram.tl.StreamUtils.writeTLObject;
 import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_CONSTRUCTOR_ID;
 import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_INT32;
@@ -25,7 +25,7 @@ public class TLRequestMessagesEditChatPhoto extends TLMethod<TLAbsUpdates> {
 
     public static final int CONSTRUCTOR_ID = 0xca4c79d8;
 
-    protected int chatId;
+    protected long chatId;
 
     protected TLAbsInputChatPhoto photo;
 
@@ -34,7 +34,7 @@ public class TLRequestMessagesEditChatPhoto extends TLMethod<TLAbsUpdates> {
     public TLRequestMessagesEditChatPhoto() {
     }
 
-    public TLRequestMessagesEditChatPhoto(int chatId, TLAbsInputChatPhoto photo) {
+    public TLRequestMessagesEditChatPhoto(long chatId, TLAbsInputChatPhoto photo) {
         this.chatId = chatId;
         this.photo = photo;
     }
@@ -56,14 +56,14 @@ public class TLRequestMessagesEditChatPhoto extends TLMethod<TLAbsUpdates> {
 
     @Override
     public void serializeBody(OutputStream stream) throws IOException {
-        writeInt(chatId, stream);
+        writeLong(chatId, stream);
         writeTLObject(photo, stream);
     }
 
     @Override
     @SuppressWarnings({"unchecked", "SimplifiableConditionalExpression"})
     public void deserializeBody(InputStream stream, TLContext context) throws IOException {
-        chatId = readInt(stream);
+        chatId = readLong(stream);
         photo = readTLObject(stream, context, TLAbsInputChatPhoto.class, -1);
     }
 
@@ -85,11 +85,11 @@ public class TLRequestMessagesEditChatPhoto extends TLMethod<TLAbsUpdates> {
         return CONSTRUCTOR_ID;
     }
 
-    public int getChatId() {
+    public long getChatId() {
         return chatId;
     }
 
-    public void setChatId(int chatId) {
+    public void setChatId(long chatId) {
         this.chatId = chatId;
     }
 

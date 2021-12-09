@@ -11,8 +11,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import static com.github.badoualy.telegram.tl.StreamUtils.readInt;
+import static com.github.badoualy.telegram.tl.StreamUtils.readLong;
 import static com.github.badoualy.telegram.tl.StreamUtils.readTLObject;
 import static com.github.badoualy.telegram.tl.StreamUtils.writeInt;
+import static com.github.badoualy.telegram.tl.StreamUtils.writeLong;
 import static com.github.badoualy.telegram.tl.StreamUtils.writeTLObject;
 import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_CONSTRUCTOR_ID;
 import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_INT32;
@@ -29,7 +31,7 @@ public class TLRequestPaymentsValidateRequestedInfo extends TLMethod<TLValidated
 
     protected boolean save;
 
-    protected int msgId;
+    protected long msgId;
 
     protected TLPaymentRequestedInfo info;
 
@@ -38,7 +40,7 @@ public class TLRequestPaymentsValidateRequestedInfo extends TLMethod<TLValidated
     public TLRequestPaymentsValidateRequestedInfo() {
     }
 
-    public TLRequestPaymentsValidateRequestedInfo(boolean save, int msgId, TLPaymentRequestedInfo info) {
+    public TLRequestPaymentsValidateRequestedInfo(boolean save, long msgId, TLPaymentRequestedInfo info) {
         this.save = save;
         this.msgId = msgId;
         this.info = info;
@@ -69,7 +71,7 @@ public class TLRequestPaymentsValidateRequestedInfo extends TLMethod<TLValidated
         computeFlags();
 
         writeInt(flags, stream);
-        writeInt(msgId, stream);
+        writeLong(msgId, stream);
         writeTLObject(info, stream);
     }
 
@@ -78,7 +80,7 @@ public class TLRequestPaymentsValidateRequestedInfo extends TLMethod<TLValidated
     public void deserializeBody(InputStream stream, TLContext context) throws IOException {
         flags = readInt(stream);
         save = (flags & 1) != 0;
-        msgId = readInt(stream);
+        msgId = readLong(stream);
         info = readTLObject(stream, context, TLPaymentRequestedInfo.class, TLPaymentRequestedInfo.CONSTRUCTOR_ID);
     }
 
@@ -111,11 +113,11 @@ public class TLRequestPaymentsValidateRequestedInfo extends TLMethod<TLValidated
         this.save = save;
     }
 
-    public int getMsgId() {
+    public long getMsgId() {
         return msgId;
     }
 
-    public void setMsgId(int msgId) {
+    public void setMsgId(long msgId) {
         this.msgId = msgId;
     }
 

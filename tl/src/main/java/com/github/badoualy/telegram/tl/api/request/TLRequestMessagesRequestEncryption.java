@@ -11,10 +11,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import static com.github.badoualy.telegram.tl.StreamUtils.readInt;
+import static com.github.badoualy.telegram.tl.StreamUtils.readLong;
 import static com.github.badoualy.telegram.tl.StreamUtils.readTLBytes;
 import static com.github.badoualy.telegram.tl.StreamUtils.readTLObject;
-import static com.github.badoualy.telegram.tl.StreamUtils.writeInt;
+import static com.github.badoualy.telegram.tl.StreamUtils.writeLong;
 import static com.github.badoualy.telegram.tl.StreamUtils.writeTLBytes;
 import static com.github.badoualy.telegram.tl.StreamUtils.writeTLObject;
 import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_CONSTRUCTOR_ID;
@@ -31,7 +31,7 @@ public class TLRequestMessagesRequestEncryption extends TLMethod<TLAbsEncryptedC
 
     protected TLAbsInputUser userId;
 
-    protected int randomId;
+    protected long randomId;
 
     protected TLBytes gA;
 
@@ -40,7 +40,7 @@ public class TLRequestMessagesRequestEncryption extends TLMethod<TLAbsEncryptedC
     public TLRequestMessagesRequestEncryption() {
     }
 
-    public TLRequestMessagesRequestEncryption(TLAbsInputUser userId, int randomId, TLBytes gA) {
+    public TLRequestMessagesRequestEncryption(TLAbsInputUser userId, long randomId, TLBytes gA) {
         this.userId = userId;
         this.randomId = randomId;
         this.gA = gA;
@@ -64,7 +64,7 @@ public class TLRequestMessagesRequestEncryption extends TLMethod<TLAbsEncryptedC
     @Override
     public void serializeBody(OutputStream stream) throws IOException {
         writeTLObject(userId, stream);
-        writeInt(randomId, stream);
+        writeLong(randomId, stream);
         writeTLBytes(gA, stream);
     }
 
@@ -72,7 +72,7 @@ public class TLRequestMessagesRequestEncryption extends TLMethod<TLAbsEncryptedC
     @SuppressWarnings({"unchecked", "SimplifiableConditionalExpression"})
     public void deserializeBody(InputStream stream, TLContext context) throws IOException {
         userId = readTLObject(stream, context, TLAbsInputUser.class, -1);
-        randomId = readInt(stream);
+        randomId = readLong(stream);
         gA = readTLBytes(stream, context);
     }
 
@@ -103,11 +103,11 @@ public class TLRequestMessagesRequestEncryption extends TLMethod<TLAbsEncryptedC
         this.userId = userId;
     }
 
-    public int getRandomId() {
+    public long getRandomId() {
         return randomId;
     }
 
-    public void setRandomId(int randomId) {
+    public void setRandomId(long randomId) {
         this.randomId = randomId;
     }
 

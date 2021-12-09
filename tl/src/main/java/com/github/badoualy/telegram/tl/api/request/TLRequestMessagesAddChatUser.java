@@ -11,8 +11,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import static com.github.badoualy.telegram.tl.StreamUtils.readInt;
+import static com.github.badoualy.telegram.tl.StreamUtils.readLong;
 import static com.github.badoualy.telegram.tl.StreamUtils.readTLObject;
 import static com.github.badoualy.telegram.tl.StreamUtils.writeInt;
+import static com.github.badoualy.telegram.tl.StreamUtils.writeLong;
 import static com.github.badoualy.telegram.tl.StreamUtils.writeTLObject;
 import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_CONSTRUCTOR_ID;
 import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_INT32;
@@ -25,7 +27,7 @@ public class TLRequestMessagesAddChatUser extends TLMethod<TLAbsUpdates> {
 
     public static final int CONSTRUCTOR_ID = 0xf9a0aa09;
 
-    protected int chatId;
+    protected long chatId;
 
     protected TLAbsInputUser userId;
 
@@ -36,7 +38,7 @@ public class TLRequestMessagesAddChatUser extends TLMethod<TLAbsUpdates> {
     public TLRequestMessagesAddChatUser() {
     }
 
-    public TLRequestMessagesAddChatUser(int chatId, TLAbsInputUser userId, int fwdLimit) {
+    public TLRequestMessagesAddChatUser(long chatId, TLAbsInputUser userId, int fwdLimit) {
         this.chatId = chatId;
         this.userId = userId;
         this.fwdLimit = fwdLimit;
@@ -59,7 +61,7 @@ public class TLRequestMessagesAddChatUser extends TLMethod<TLAbsUpdates> {
 
     @Override
     public void serializeBody(OutputStream stream) throws IOException {
-        writeInt(chatId, stream);
+        writeLong(chatId, stream);
         writeTLObject(userId, stream);
         writeInt(fwdLimit, stream);
     }
@@ -67,7 +69,7 @@ public class TLRequestMessagesAddChatUser extends TLMethod<TLAbsUpdates> {
     @Override
     @SuppressWarnings({"unchecked", "SimplifiableConditionalExpression"})
     public void deserializeBody(InputStream stream, TLContext context) throws IOException {
-        chatId = readInt(stream);
+        chatId = readLong(stream);
         userId = readTLObject(stream, context, TLAbsInputUser.class, -1);
         fwdLimit = readInt(stream);
     }
@@ -91,11 +93,11 @@ public class TLRequestMessagesAddChatUser extends TLMethod<TLAbsUpdates> {
         return CONSTRUCTOR_ID;
     }
 
-    public int getChatId() {
+    public long getChatId() {
         return chatId;
     }
 
-    public void setChatId(int chatId) {
+    public void setChatId(long chatId) {
         this.chatId = chatId;
     }
 

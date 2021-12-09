@@ -10,9 +10,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import static com.github.badoualy.telegram.tl.StreamUtils.readInt;
+import static com.github.badoualy.telegram.tl.StreamUtils.readLong;
 import static com.github.badoualy.telegram.tl.StreamUtils.readTLObject;
-import static com.github.badoualy.telegram.tl.StreamUtils.writeInt;
+import static com.github.badoualy.telegram.tl.StreamUtils.writeLong;
 import static com.github.badoualy.telegram.tl.StreamUtils.writeTLObject;
 import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_CONSTRUCTOR_ID;
 import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_INT32;
@@ -27,14 +27,14 @@ public class TLRequestMessagesReadHistory extends TLMethod<TLAffectedMessages> {
 
     protected TLAbsInputPeer peer;
 
-    protected int maxId;
+    protected long maxId;
 
     private final String _constructor = "messages.readHistory#e306d3a";
 
     public TLRequestMessagesReadHistory() {
     }
 
-    public TLRequestMessagesReadHistory(TLAbsInputPeer peer, int maxId) {
+    public TLRequestMessagesReadHistory(TLAbsInputPeer peer, long maxId) {
         this.peer = peer;
         this.maxId = maxId;
     }
@@ -57,14 +57,14 @@ public class TLRequestMessagesReadHistory extends TLMethod<TLAffectedMessages> {
     @Override
     public void serializeBody(OutputStream stream) throws IOException {
         writeTLObject(peer, stream);
-        writeInt(maxId, stream);
+        writeLong(maxId, stream);
     }
 
     @Override
     @SuppressWarnings({"unchecked", "SimplifiableConditionalExpression"})
     public void deserializeBody(InputStream stream, TLContext context) throws IOException {
         peer = readTLObject(stream, context, TLAbsInputPeer.class, -1);
-        maxId = readInt(stream);
+        maxId = readLong(stream);
     }
 
     @Override
@@ -93,11 +93,11 @@ public class TLRequestMessagesReadHistory extends TLMethod<TLAffectedMessages> {
         this.peer = peer;
     }
 
-    public int getMaxId() {
+    public long getMaxId() {
         return maxId;
     }
 
-    public void setMaxId(int maxId) {
+    public void setMaxId(long maxId) {
         this.maxId = maxId;
     }
 }

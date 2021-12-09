@@ -11,8 +11,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import static com.github.badoualy.telegram.tl.StreamUtils.readInt;
+import static com.github.badoualy.telegram.tl.StreamUtils.readLong;
 import static com.github.badoualy.telegram.tl.StreamUtils.readTLObject;
 import static com.github.badoualy.telegram.tl.StreamUtils.writeInt;
+import static com.github.badoualy.telegram.tl.StreamUtils.writeLong;
 import static com.github.badoualy.telegram.tl.StreamUtils.writeTLObject;
 import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_CONSTRUCTOR_ID;
 import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_INT32;
@@ -27,7 +29,7 @@ public class TLRequestMessagesGetHistory extends TLMethod<TLAbsMessages> {
 
     protected TLAbsInputPeer peer;
 
-    protected int offsetId;
+    protected long offsetId;
 
     protected int offsetDate;
 
@@ -35,16 +37,16 @@ public class TLRequestMessagesGetHistory extends TLMethod<TLAbsMessages> {
 
     protected int limit;
 
-    protected int maxId;
+    protected long maxId;
 
-    protected int minId;
+    protected long minId;
 
     private final String _constructor = "messages.getHistory#afa92846";
 
     public TLRequestMessagesGetHistory() {
     }
 
-    public TLRequestMessagesGetHistory(TLAbsInputPeer peer, int offsetId, int offsetDate, int addOffset, int limit, int maxId, int minId) {
+    public TLRequestMessagesGetHistory(TLAbsInputPeer peer, long offsetId, int offsetDate, int addOffset, int limit, long maxId, long minId) {
         this.peer = peer;
         this.offsetId = offsetId;
         this.offsetDate = offsetDate;
@@ -72,24 +74,24 @@ public class TLRequestMessagesGetHistory extends TLMethod<TLAbsMessages> {
     @Override
     public void serializeBody(OutputStream stream) throws IOException {
         writeTLObject(peer, stream);
-        writeInt(offsetId, stream);
+        writeLong(offsetId, stream);
         writeInt(offsetDate, stream);
         writeInt(addOffset, stream);
         writeInt(limit, stream);
-        writeInt(maxId, stream);
-        writeInt(minId, stream);
+        writeLong(maxId, stream);
+        writeLong(minId, stream);
     }
 
     @Override
     @SuppressWarnings({"unchecked", "SimplifiableConditionalExpression"})
     public void deserializeBody(InputStream stream, TLContext context) throws IOException {
         peer = readTLObject(stream, context, TLAbsInputPeer.class, -1);
-        offsetId = readInt(stream);
+        offsetId = readLong(stream);
         offsetDate = readInt(stream);
         addOffset = readInt(stream);
         limit = readInt(stream);
-        maxId = readInt(stream);
-        minId = readInt(stream);
+        maxId = readLong(stream);
+        minId = readLong(stream);
     }
 
     @Override
@@ -123,11 +125,11 @@ public class TLRequestMessagesGetHistory extends TLMethod<TLAbsMessages> {
         this.peer = peer;
     }
 
-    public int getOffsetId() {
+    public long getOffsetId() {
         return offsetId;
     }
 
-    public void setOffsetId(int offsetId) {
+    public void setOffsetId(long offsetId) {
         this.offsetId = offsetId;
     }
 
@@ -155,19 +157,19 @@ public class TLRequestMessagesGetHistory extends TLMethod<TLAbsMessages> {
         this.limit = limit;
     }
 
-    public int getMaxId() {
+    public long getMaxId() {
         return maxId;
     }
 
-    public void setMaxId(int maxId) {
+    public void setMaxId(long maxId) {
         this.maxId = maxId;
     }
 
-    public int getMinId() {
+    public long getMinId() {
         return minId;
     }
 
-    public void setMinId(int minId) {
+    public void setMinId(long minId) {
         this.minId = minId;
     }
 }

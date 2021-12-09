@@ -17,7 +17,7 @@ subprojects {
     }
 
     buildscript {
-        ext.kotlin_version = '1.6.0'
+        ext.kotlin_version = '1.4.0'
         repositories {
             mavenCentral()
         }
@@ -30,7 +30,7 @@ subprojects {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
-    plugins.withType(MavenPlugin) {
+    plugins.withId('maven-publish') {
         install {
             repositories.mavenInstaller {
                 pom.project {

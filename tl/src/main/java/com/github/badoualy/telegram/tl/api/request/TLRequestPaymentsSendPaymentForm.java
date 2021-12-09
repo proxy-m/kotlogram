@@ -11,9 +11,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import static com.github.badoualy.telegram.tl.StreamUtils.readInt;
+import static com.github.badoualy.telegram.tl.StreamUtils.readLong;
 import static com.github.badoualy.telegram.tl.StreamUtils.readTLObject;
 import static com.github.badoualy.telegram.tl.StreamUtils.readTLString;
 import static com.github.badoualy.telegram.tl.StreamUtils.writeInt;
+import static com.github.badoualy.telegram.tl.StreamUtils.writeLong;
 import static com.github.badoualy.telegram.tl.StreamUtils.writeString;
 import static com.github.badoualy.telegram.tl.StreamUtils.writeTLObject;
 import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_CONSTRUCTOR_ID;
@@ -30,7 +32,7 @@ public class TLRequestPaymentsSendPaymentForm extends TLMethod<TLAbsPaymentResul
 
     protected int flags;
 
-    protected int msgId;
+    protected long msgId;
 
     protected String requestedInfoId;
 
@@ -43,7 +45,7 @@ public class TLRequestPaymentsSendPaymentForm extends TLMethod<TLAbsPaymentResul
     public TLRequestPaymentsSendPaymentForm() {
     }
 
-    public TLRequestPaymentsSendPaymentForm(int msgId, String requestedInfoId, String shippingOptionId, TLAbsInputPaymentCredentials credentials) {
+    public TLRequestPaymentsSendPaymentForm(long msgId, String requestedInfoId, String shippingOptionId, TLAbsInputPaymentCredentials credentials) {
         this.msgId = msgId;
         this.requestedInfoId = requestedInfoId;
         this.shippingOptionId = shippingOptionId;
@@ -76,7 +78,7 @@ public class TLRequestPaymentsSendPaymentForm extends TLMethod<TLAbsPaymentResul
         computeFlags();
 
         writeInt(flags, stream);
-        writeInt(msgId, stream);
+        writeLong(msgId, stream);
         if ((flags & 1) != 0) {
             if (requestedInfoId == null) throwNullFieldException("requestedInfoId", flags);
             writeString(requestedInfoId, stream);
@@ -92,7 +94,7 @@ public class TLRequestPaymentsSendPaymentForm extends TLMethod<TLAbsPaymentResul
     @SuppressWarnings({"unchecked", "SimplifiableConditionalExpression"})
     public void deserializeBody(InputStream stream, TLContext context) throws IOException {
         flags = readInt(stream);
-        msgId = readInt(stream);
+        msgId = readLong(stream);
         requestedInfoId = (flags & 1) != 0 ? readTLString(stream) : null;
         shippingOptionId = (flags & 2) != 0 ? readTLString(stream) : null;
         credentials = readTLObject(stream, context, TLAbsInputPaymentCredentials.class, -1);
@@ -127,11 +129,11 @@ public class TLRequestPaymentsSendPaymentForm extends TLMethod<TLAbsPaymentResul
         return CONSTRUCTOR_ID;
     }
 
-    public int getMsgId() {
+    public long getMsgId() {
         return msgId;
     }
 
-    public void setMsgId(int msgId) {
+    public void setMsgId(long msgId) {
         this.msgId = msgId;
     }
 
