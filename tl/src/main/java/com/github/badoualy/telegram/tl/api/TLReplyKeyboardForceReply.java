@@ -17,7 +17,7 @@ import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_INT32;
  */
 public class TLReplyKeyboardForceReply extends TLAbsReplyMarkup {
 
-    public static final int CONSTRUCTOR_ID = 0xf4108aa0;
+    public static final int CONSTRUCTOR_ID = 0x86b40b08;
 
     protected int flags;
 
@@ -25,20 +25,28 @@ public class TLReplyKeyboardForceReply extends TLAbsReplyMarkup {
 
     protected boolean selective;
 
-    private final String _constructor = "replyKeyboardForceReply#f4108aa0";
+    protected String placeholder;
+
+    private final String _constructor = "replyKeyboardForceReply#86b40b08";
 
     public TLReplyKeyboardForceReply() {
     }
 
-    public TLReplyKeyboardForceReply(boolean singleUse, boolean selective) {
+    public TLReplyKeyboardForceReply(boolean singleUse, boolean selective, String placeholder) {
         this.singleUse = singleUse;
         this.selective = selective;
+        this.placeholder = placeholder;
     }
 
+    /*
+    TODO: rework flags compute according to
+    https://core.telegram.org/mtproto/TL-combinators#conditional-fields
+    */
     private void computeFlags() {
         flags = 0;
-        flags = singleUse ? (flags | 2) : (flags & ~2);
-        flags = selective ? (flags | 4) : (flags & ~4);
+        flags = singleUse ? (flags | 1) : (flags & ~1);
+        flags = selective ? (flags | 2) : (flags & ~2);
+        flags = placeholder != null ? (flags | 4) : (flags & ~4);
     }
 
     @Override

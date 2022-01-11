@@ -4,6 +4,7 @@ apply plugin: 'maven'
 
 sourceCompatibility = '1.7'
 targetCompatibility = '1.7'
+group = 'com.github.badoualy'
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -22,4 +23,22 @@ task fatJar(type: Jar) {
     baseName = "kotlogram-$project.name"
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
+
+    plugins.withType(MavenPlugin) {
+        install {
+
+            repositories.mavenInstaller {
+                pom.artifactId = 'kotlogram'
+                pom.project {
+                    licenses {
+                        license {
+                            name 'The MIT License (MIT)'
+                            url 'https://opensource.org/licenses/MIT'
+                            distribution 'repo'
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

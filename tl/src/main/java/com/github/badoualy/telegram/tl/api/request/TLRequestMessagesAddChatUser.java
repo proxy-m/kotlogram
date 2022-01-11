@@ -10,12 +10,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import static com.github.badoualy.telegram.tl.StreamUtils.readInt;
-import static com.github.badoualy.telegram.tl.StreamUtils.readTLObject;
-import static com.github.badoualy.telegram.tl.StreamUtils.writeInt;
-import static com.github.badoualy.telegram.tl.StreamUtils.writeTLObject;
-import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_CONSTRUCTOR_ID;
-import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_INT32;
+import static com.github.badoualy.telegram.tl.StreamUtils.*;
+import static com.github.badoualy.telegram.tl.TLObjectUtils.*;
 
 /**
  * @author Yannick Badoual yann.badoual@gmail.com
@@ -23,20 +19,20 @@ import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_INT32;
  */
 public class TLRequestMessagesAddChatUser extends TLMethod<TLAbsUpdates> {
 
-    public static final int CONSTRUCTOR_ID = 0xf9a0aa09;
+    public static final int CONSTRUCTOR_ID = 0xf24753e3;
 
-    protected int chatId;
+    protected long chatId;
 
     protected TLAbsInputUser userId;
 
     protected int fwdLimit;
 
-    private final String _constructor = "messages.addChatUser#f9a0aa09";
+    private final String _constructor = "messages.addChatUser#f24753e3";
 
     public TLRequestMessagesAddChatUser() {
     }
 
-    public TLRequestMessagesAddChatUser(int chatId, TLAbsInputUser userId, int fwdLimit) {
+    public TLRequestMessagesAddChatUser(long chatId, TLAbsInputUser userId, int fwdLimit) {
         this.chatId = chatId;
         this.userId = userId;
         this.fwdLimit = fwdLimit;
@@ -59,7 +55,7 @@ public class TLRequestMessagesAddChatUser extends TLMethod<TLAbsUpdates> {
 
     @Override
     public void serializeBody(OutputStream stream) throws IOException {
-        writeInt(chatId, stream);
+        writeLong(chatId, stream);
         writeTLObject(userId, stream);
         writeInt(fwdLimit, stream);
     }
@@ -67,7 +63,7 @@ public class TLRequestMessagesAddChatUser extends TLMethod<TLAbsUpdates> {
     @Override
     @SuppressWarnings({"unchecked", "SimplifiableConditionalExpression"})
     public void deserializeBody(InputStream stream, TLContext context) throws IOException {
-        chatId = readInt(stream);
+        chatId = readLong(stream);
         userId = readTLObject(stream, context, TLAbsInputUser.class, -1);
         fwdLimit = readInt(stream);
     }
@@ -75,7 +71,7 @@ public class TLRequestMessagesAddChatUser extends TLMethod<TLAbsUpdates> {
     @Override
     public int computeSerializedSize() {
         int size = SIZE_CONSTRUCTOR_ID;
-        size += SIZE_INT32;
+        size += SIZE_INT64;
         size += userId.computeSerializedSize();
         size += SIZE_INT32;
         return size;
@@ -91,11 +87,11 @@ public class TLRequestMessagesAddChatUser extends TLMethod<TLAbsUpdates> {
         return CONSTRUCTOR_ID;
     }
 
-    public int getChatId() {
+    public long getChatId() {
         return chatId;
     }
 
-    public void setChatId(int chatId) {
+    public void setChatId(long chatId) {
         this.chatId = chatId;
     }
 

@@ -21,7 +21,9 @@ import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_CONSTRUCTOR_ID;
  */
 public class TLFound extends TLObject {
 
-    public static final int CONSTRUCTOR_ID = 0x1aa1f784;
+    public static final int CONSTRUCTOR_ID = 0xb3134d9d;
+
+    protected TLVector<TLAbsPeer> myResults;
 
     protected TLVector<TLAbsPeer> results;
 
@@ -29,12 +31,14 @@ public class TLFound extends TLObject {
 
     protected TLVector<TLAbsUser> users;
 
-    private final String _constructor = "contacts.found#1aa1f784";
+    private final String _constructor = "contacts.found#b3134d9d";
 
     public TLFound() {
     }
 
-    public TLFound(TLVector<TLAbsPeer> results, TLVector<TLAbsChat> chats, TLVector<TLAbsUser> users) {
+    public TLFound(TLVector<TLAbsPeer> myResults, TLVector<TLAbsPeer> results,
+                   TLVector<TLAbsChat> chats, TLVector<TLAbsUser> users) {
+        this.myResults = myResults;
         this.results = results;
         this.chats = chats;
         this.users = users;
@@ -42,6 +46,7 @@ public class TLFound extends TLObject {
 
     @Override
     public void serializeBody(OutputStream stream) throws IOException {
+        writeTLVector(myResults, stream);
         writeTLVector(results, stream);
         writeTLVector(chats, stream);
         writeTLVector(users, stream);
@@ -50,6 +55,7 @@ public class TLFound extends TLObject {
     @Override
     @SuppressWarnings({"unchecked", "SimplifiableConditionalExpression"})
     public void deserializeBody(InputStream stream, TLContext context) throws IOException {
+        myResults = readTLVector(stream, context);
         results = readTLVector(stream, context);
         chats = readTLVector(stream, context);
         users = readTLVector(stream, context);
@@ -58,6 +64,7 @@ public class TLFound extends TLObject {
     @Override
     public int computeSerializedSize() {
         int size = SIZE_CONSTRUCTOR_ID;
+        size += myResults.computeSerializedSize();
         size += results.computeSerializedSize();
         size += chats.computeSerializedSize();
         size += users.computeSerializedSize();
@@ -96,5 +103,13 @@ public class TLFound extends TLObject {
 
     public void setUsers(TLVector<TLAbsUser> users) {
         this.users = users;
+    }
+
+    public TLVector<TLAbsPeer> getMyResults() {
+        return myResults;
+    }
+
+    public void setMyResults(TLVector<TLAbsPeer> myResults) {
+        this.myResults = myResults;
     }
 }

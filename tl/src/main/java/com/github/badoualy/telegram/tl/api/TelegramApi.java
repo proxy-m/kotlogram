@@ -254,6 +254,8 @@ public interface TelegramApi {
 
     TLBool contestSaveDeveloperInfo(int vkId, String name, String phoneNumber, int age, String city) throws RpcErrorException, IOException;
 
+    TLSponsoredMessages getSponsoredMessages(TLAbsInputChannel channel) throws RpcErrorException, IOException;
+
     TLAbsUpdates helpGetAppChangelog(String prevAppVersion) throws RpcErrorException, IOException;
 
     TLAbsAppUpdate helpGetAppUpdate() throws RpcErrorException, IOException;
@@ -342,7 +344,7 @@ public interface TelegramApi {
 
     TLAbsFeaturedStickers messagesGetFeaturedStickers(int hash) throws RpcErrorException, IOException;
 
-    TLChatFull messagesGetFullChat(int chatId) throws RpcErrorException, IOException;
+    TLChatFull messagesGetFullChat(long chatId) throws RpcErrorException, IOException;
 
     TLHighScores messagesGetGameHighScores(TLAbsInputPeer peer, int id, TLAbsInputUser userId) throws RpcErrorException, IOException;
 

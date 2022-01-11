@@ -25,20 +25,17 @@ import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_CONSTRUCTOR_ID;
  */
 public class TLRequestContactsImportContacts extends TLMethod<TLImportedContacts> {
 
-    public static final int CONSTRUCTOR_ID = 0xda30b32d;
+    public static final int CONSTRUCTOR_ID = 0x2c800be5;
 
     protected TLVector<TLInputPhoneContact> contacts;
 
-    protected boolean replace;
-
-    private final String _constructor = "contacts.importContacts#da30b32d";
+    private final String _constructor = "contacts.importContacts#2c800be5";
 
     public TLRequestContactsImportContacts() {
     }
 
     public TLRequestContactsImportContacts(TLVector<TLInputPhoneContact> contacts, boolean replace) {
         this.contacts = contacts;
-        this.replace = replace;
     }
 
     @Override
@@ -59,14 +56,12 @@ public class TLRequestContactsImportContacts extends TLMethod<TLImportedContacts
     @Override
     public void serializeBody(OutputStream stream) throws IOException {
         writeTLVector(contacts, stream);
-        writeBoolean(replace, stream);
     }
 
     @Override
     @SuppressWarnings({"unchecked", "SimplifiableConditionalExpression"})
     public void deserializeBody(InputStream stream, TLContext context) throws IOException {
         contacts = readTLVector(stream, context);
-        replace = readTLBool(stream);
     }
 
     @Override
@@ -95,11 +90,4 @@ public class TLRequestContactsImportContacts extends TLMethod<TLImportedContacts
         this.contacts = contacts;
     }
 
-    public boolean getReplace() {
-        return replace;
-    }
-
-    public void setReplace(boolean replace) {
-        this.replace = replace;
-    }
 }

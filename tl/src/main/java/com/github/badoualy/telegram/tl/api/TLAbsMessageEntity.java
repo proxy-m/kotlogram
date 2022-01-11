@@ -13,7 +13,7 @@ import com.github.badoualy.telegram.tl.core.TLObject;
  * <li>{@link TLMessageEntityHashtag}: messageEntityHashtag#6f635b0d</li>
  * <li>{@link TLMessageEntityItalic}: messageEntityItalic#826f8b60</li>
  * <li>{@link TLMessageEntityMention}: messageEntityMention#fa04579d</li>
- * <li>{@link TLMessageEntityMentionName}: messageEntityMentionName#352dca58</li>
+ * <li>{@link TLMessageEntityMentionName}: messageEntityMentionName#dc7b1140</li>
  * <li>{@link TLMessageEntityPre}: messageEntityPre#73924be0</li>
  * <li>{@link TLMessageEntityTextUrl}: messageEntityTextUrl#76a6d327</li>
  * <li>{@link TLMessageEntityUnknown}: messageEntityUnknown#bb92ba95</li>

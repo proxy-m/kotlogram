@@ -1,7 +1,9 @@
 subprojects {
     apply plugin: 'java'
 
-    version = "1.0.0-RC2"
+    apply plugin: "maven"
+
+    version = "1.0.1"
     group = 'com.github.badoualy'
 
     sourceCompatibility = '1.7'
@@ -32,6 +34,7 @@ subprojects {
 
     plugins.withType(MavenPlugin) {
         install {
+
             repositories.mavenInstaller {
                 pom.project {
                     licenses {

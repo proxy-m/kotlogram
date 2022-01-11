@@ -15,7 +15,7 @@ import com.github.badoualy.telegram.tl.core.TLVector;
  */
 public abstract class TLAbsChatFull extends TLObject {
 
-    protected int id;
+    protected long id;
 
     protected TLAbsPhoto chatPhoto;
 
@@ -28,7 +28,7 @@ public abstract class TLAbsChatFull extends TLObject {
     public TLAbsChatFull() {
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

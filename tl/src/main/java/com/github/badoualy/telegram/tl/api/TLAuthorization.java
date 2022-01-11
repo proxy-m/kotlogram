@@ -24,7 +24,7 @@ import static com.github.badoualy.telegram.tl.TLObjectUtils.computeTLStringSeria
  */
 public class TLAuthorization extends TLObject {
 
-    public static final int CONSTRUCTOR_ID = 0x7bf2e6f6;
+    public static final int CONSTRUCTOR_ID = 0xad01d61d ;
 
     protected long hash;
 
@@ -52,7 +52,7 @@ public class TLAuthorization extends TLObject {
 
     protected String region;
 
-    private final String _constructor = "authorization#7bf2e6f6";
+    private final String _constructor = "authorization#ad01d61d";
 
     public TLAuthorization() {
     }

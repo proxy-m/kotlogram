@@ -20,7 +20,7 @@ import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_INT32;
  */
 public class TLReplyKeyboardMarkup extends TLAbsReplyMarkup {
 
-    public static final int CONSTRUCTOR_ID = 0x3502758c;
+    public static final int CONSTRUCTOR_ID = 0x85dd99d1;
 
     protected int flags;
 
@@ -32,12 +32,14 @@ public class TLReplyKeyboardMarkup extends TLAbsReplyMarkup {
 
     protected TLVector<TLKeyboardButtonRow> rows;
 
-    private final String _constructor = "replyKeyboardMarkup#3502758c";
+    protected String placeholder;
+
+    private final String _constructor = "replyKeyboardMarkup#85dd99d1";
 
     public TLReplyKeyboardMarkup() {
     }
 
-    public TLReplyKeyboardMarkup(boolean resize, boolean singleUse, boolean selective, TLVector<TLKeyboardButtonRow> rows) {
+    public TLReplyKeyboardMarkup(boolean resize, boolean singleUse, boolean selective, TLVector<TLKeyboardButtonRow> rows, String placeholder) {
         this.resize = resize;
         this.singleUse = singleUse;
         this.selective = selective;
@@ -49,6 +51,7 @@ public class TLReplyKeyboardMarkup extends TLAbsReplyMarkup {
         flags = resize ? (flags | 1) : (flags & ~1);
         flags = singleUse ? (flags | 2) : (flags & ~2);
         flags = selective ? (flags | 4) : (flags & ~4);
+        flags = placeholder != null ? (flags | 8) : (flags & ~8);
     }
 
     @Override
@@ -119,5 +122,13 @@ public class TLReplyKeyboardMarkup extends TLAbsReplyMarkup {
 
     public void setRows(TLVector<TLKeyboardButtonRow> rows) {
         this.rows = rows;
+    }
+
+    public String getPlaceholder() {
+        return placeholder;
+    }
+
+    public void setPlaceholder(String placeholder) {
+        this.placeholder = placeholder;
     }
 }

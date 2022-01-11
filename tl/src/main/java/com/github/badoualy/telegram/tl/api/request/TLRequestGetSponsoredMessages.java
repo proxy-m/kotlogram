@@ -1,7 +1,11 @@
 package com.github.badoualy.telegram.tl.api.request;
 
 import com.github.badoualy.telegram.tl.TLContext;
-import com.github.badoualy.telegram.tl.api.messages.TLChatFull;
+import com.github.badoualy.telegram.tl.api.TLAbsInputChannel;
+import com.github.badoualy.telegram.tl.api.TLChannel;
+import com.github.badoualy.telegram.tl.api.TLInputChannel;
+import com.github.badoualy.telegram.tl.api.TLSponsoredMessages;
+import com.github.badoualy.telegram.tl.core.TLBool;
 import com.github.badoualy.telegram.tl.core.TLMethod;
 import com.github.badoualy.telegram.tl.core.TLObject;
 
@@ -10,58 +14,54 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import static com.github.badoualy.telegram.tl.StreamUtils.*;
+import static com.github.badoualy.telegram.tl.StreamUtils.readTLString;
 import static com.github.badoualy.telegram.tl.TLObjectUtils.*;
+import static com.github.badoualy.telegram.tl.TLObjectUtils.computeTLStringSerializedSize;
 
-/**
- * @author Yannick Badoual yann.badoual@gmail.com
- * @see <a href="http://github.com/badoualy/kotlogram">http://github.com/badoualy/kotlogram</a>
- */
-public class TLRequestMessagesGetFullChat extends TLMethod<TLChatFull> {
+public class TLRequestGetSponsoredMessages extends TLMethod<TLSponsoredMessages> {
 
-    public static final int CONSTRUCTOR_ID = 0xaeb00b34;
+    public static final int CONSTRUCTOR_ID = 0xec210fbf;
 
-    protected long chatId;
+    protected TLAbsInputChannel channel;
 
-    private final String _constructor = "messages.getFullChat#aeb00b34";
+    private final String _constructor = "channels.getSponsoredMessages#ec210fbf";
 
-    public TLRequestMessagesGetFullChat() {
+    public TLRequestGetSponsoredMessages() {
     }
 
-    public TLRequestMessagesGetFullChat(long chatId) {
-        this.chatId = chatId;
+    public TLRequestGetSponsoredMessages(TLAbsInputChannel channel) {
+        this.channel = channel;
     }
 
     @Override
     @SuppressWarnings({"unchecked", "SimplifiableConditionalExpression"})
-    public TLChatFull deserializeResponse(InputStream stream, TLContext context) throws IOException {
+    public TLSponsoredMessages deserializeResponse(InputStream stream, TLContext context) throws IOException {
         final TLObject response = readTLObject(stream, context);
         if (response == null) {
             throw new IOException("Unable to parse response");
         }
-        if (!(response instanceof TLChatFull)) {
+        if (!(response instanceof TLSponsoredMessages)) {
             throw new IOException(
                     "Incorrect response type, expected " + getClass().getCanonicalName() + ", found " + response
                             .getClass().getCanonicalName());
         }
-        return (TLChatFull) response;
+        return (TLSponsoredMessages) response;
     }
 
     @Override
     public void serializeBody(OutputStream stream) throws IOException {
-        writeLong(chatId, stream);
+        writeTLObject(channel, stream);
     }
 
     @Override
     @SuppressWarnings({"unchecked", "SimplifiableConditionalExpression"})
     public void deserializeBody(InputStream stream, TLContext context) throws IOException {
-        chatId = readLong(stream);
+        channel = readTLObject(stream, context, TLInputChannel.class, -1);
     }
 
     @Override
     public int computeSerializedSize() {
-        int size = SIZE_CONSTRUCTOR_ID;
-        size += SIZE_INT64;
-        return size;
+        return channel.computeSerializedSize();
     }
 
     @Override
@@ -74,11 +74,5 @@ public class TLRequestMessagesGetFullChat extends TLMethod<TLChatFull> {
         return CONSTRUCTOR_ID;
     }
 
-    public long getChatId() {
-        return chatId;
-    }
 
-    public void setChatId(int chatId) {
-        this.chatId = chatId;
-    }
 }

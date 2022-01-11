@@ -1,6 +1,7 @@
 package com.github.badoualy.telegram.tl.api;
 
 import com.github.badoualy.telegram.tl.TLContext;
+import com.github.badoualy.telegram.tl.core.TLBytes;
 import com.github.badoualy.telegram.tl.core.TLVector;
 
 import java.io.IOException;
@@ -13,9 +14,7 @@ import static com.github.badoualy.telegram.tl.StreamUtils.readTLVector;
 import static com.github.badoualy.telegram.tl.StreamUtils.writeInt;
 import static com.github.badoualy.telegram.tl.StreamUtils.writeLong;
 import static com.github.badoualy.telegram.tl.StreamUtils.writeTLVector;
-import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_CONSTRUCTOR_ID;
-import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_INT32;
-import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_INT64;
+import static com.github.badoualy.telegram.tl.TLObjectUtils.*;
 
 /**
  * @author Yannick Badoual yann.badoual@gmail.com
@@ -23,29 +22,38 @@ import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_INT64;
  */
 public class TLPhoto extends TLAbsPhoto {
 
-    public static final int CONSTRUCTOR_ID = 0x9288dd29;
+    public static final int CONSTRUCTOR_ID = 0xfb197a65;
 
     protected int flags;
 
     protected boolean hasStickers;
 
+    protected long id;
+
     protected long accessHash;
+
+    protected TLBytes fileReference;
 
     protected int date;
 
     protected TLVector<TLAbsPhotoSize> sizes;
 
-    private final String _constructor = "photo#9288dd29";
+    protected int dcId;
+
+    private final String _constructor = "photo#fb197a65";
 
     public TLPhoto() {
     }
 
-    public TLPhoto(boolean hasStickers, long id, long accessHash, int date, TLVector<TLAbsPhotoSize> sizes) {
+    public TLPhoto(boolean hasStickers, long id, long accessHash, TLBytes fileReference, int date,
+                   TLVector<TLAbsPhotoSize> sizes, int dcId) {
         this.hasStickers = hasStickers;
         this.id = id;
         this.accessHash = accessHash;
+        this.fileReference = fileReference;
         this.date = date;
         this.sizes = sizes;
+        this.dcId = dcId;
     }
 
     private void computeFlags() {
@@ -83,8 +91,11 @@ public class TLPhoto extends TLAbsPhoto {
         size += SIZE_INT32;
         size += SIZE_INT64;
         size += SIZE_INT64;
+        size += SIZE_INT64;
+        size += computeTLBytesSerializedSize(fileReference);
         size += SIZE_INT32;
         size += sizes.computeSerializedSize();
+        size += SIZE_INT32;
         return size;
     }
 

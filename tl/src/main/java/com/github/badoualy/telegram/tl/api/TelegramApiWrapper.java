@@ -531,6 +531,11 @@ public abstract class TelegramApiWrapper implements TelegramApi {
     }
 
     @Override
+    public TLSponsoredMessages getSponsoredMessages(TLAbsInputChannel channel) throws RpcErrorException, IOException {
+        return (TLSponsoredMessages) executeRpcQuery(new TLRequestGetSponsoredMessages(channel));
+    }
+
+    @Override
     public TLAbsUpdates helpGetAppChangelog(String prevAppVersion) throws RpcErrorException, IOException {
         return (TLAbsUpdates) executeRpcQuery(new TLRequestHelpGetAppChangelog(prevAppVersion));
     }
@@ -757,7 +762,7 @@ public abstract class TelegramApiWrapper implements TelegramApi {
     }
 
     @Override
-    public TLChatFull messagesGetFullChat(int chatId) throws RpcErrorException, IOException {
+    public TLChatFull messagesGetFullChat(long chatId) throws RpcErrorException, IOException {
         return (TLChatFull) executeRpcQuery(new TLRequestMessagesGetFullChat(chatId));
     }
 
@@ -987,7 +992,7 @@ public abstract class TelegramApiWrapper implements TelegramApi {
     public TLAbsUpdates messagesSendMessage(boolean noWebpage, boolean silent, boolean background, boolean clearDraft, TLAbsInputPeer peer, Integer replyToMsgId, String message, long randomId, TLAbsReplyMarkup replyMarkup, TLVector<TLAbsMessageEntity> entities) throws RpcErrorException, IOException {
         return (TLAbsUpdates) executeRpcQuery(
                 new TLRequestMessagesSendMessage(noWebpage, silent, background, clearDraft, peer, replyToMsgId, message,
-                                                 randomId, replyMarkup, entities));
+                                                 randomId, replyMarkup, entities, null));
     }
 
     @Override

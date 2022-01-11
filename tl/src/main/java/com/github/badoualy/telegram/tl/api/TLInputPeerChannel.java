@@ -20,13 +20,13 @@ import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_INT64;
  */
 public class TLInputPeerChannel extends TLAbsInputPeer {
 
-    public static final int CONSTRUCTOR_ID = 0x20adaef8;
+    public static final int CONSTRUCTOR_ID = 0x27bcbbfc;
 
-    protected int channelId;
+    protected long channelId;
 
     protected long accessHash;
 
-    private final String _constructor = "inputPeerChannel#20adaef8";
+    private final String _constructor = "inputPeerChannel#27bcbbfc";
 
     public TLInputPeerChannel() {
     }
@@ -38,21 +38,21 @@ public class TLInputPeerChannel extends TLAbsInputPeer {
 
     @Override
     public void serializeBody(OutputStream stream) throws IOException {
-        writeInt(channelId, stream);
+        writeLong(channelId, stream);
         writeLong(accessHash, stream);
     }
 
     @Override
     @SuppressWarnings({"unchecked", "SimplifiableConditionalExpression"})
     public void deserializeBody(InputStream stream, TLContext context) throws IOException {
-        channelId = readInt(stream);
+        channelId = readLong(stream);
         accessHash = readLong(stream);
     }
 
     @Override
     public int computeSerializedSize() {
         int size = SIZE_CONSTRUCTOR_ID;
-        size += SIZE_INT32;
+        size += SIZE_INT64;
         size += SIZE_INT64;
         return size;
     }
@@ -67,11 +67,11 @@ public class TLInputPeerChannel extends TLAbsInputPeer {
         return CONSTRUCTOR_ID;
     }
 
-    public int getChannelId() {
+    public long getChannelId() {
         return channelId;
     }
 
-    public void setChannelId(int channelId) {
+    public void setChannelId(long channelId) {
         this.channelId = channelId;
     }
 
