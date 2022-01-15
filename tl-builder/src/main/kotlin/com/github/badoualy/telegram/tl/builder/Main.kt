@@ -1,3 +1,5 @@
+@file:Suppress("WarningOnMainUnusedParameterMigration")
+
 package com.github.badoualy.telegram.tl.builder
 
 import com.fasterxml.jackson.databind.JsonNode

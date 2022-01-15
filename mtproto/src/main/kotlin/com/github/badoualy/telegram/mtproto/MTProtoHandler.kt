@@ -411,7 +411,7 @@ class MTProtoHandler {
 
     private fun onErrorReceived(it: Throwable) {
         logger.error(session.marker, "onErrorReceived()", it)
-        val singleSubscriber = subscriberMap.maxBy { it.key }?.value
+        val singleSubscriber = subscriberMap.maxByOrNull { it.key }?.value
         if (singleSubscriber != null) {
             logger.debug(session.marker, "Found a single subscriber, sending timeout")
             singleSubscriber.onError(TimeoutException())
