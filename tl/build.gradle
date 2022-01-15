@@ -15,14 +15,14 @@ dependencies {
     testCompile 'commons-codec:commons-codec:1.10'
 }
 
-test {
+/*test {
     useTestNG()
     testLogging.showStandardStreams = true
-}
+}*/
 
 tasks.withType(Test) {
-    scanForTestClasses = false
-    include "**/*Test.class"
+    //scanForTestClasses = false
+    //include "**/*Test.class"
 }
 
 task fatJar(type: Jar) {
