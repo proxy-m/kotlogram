@@ -73,12 +73,12 @@ public class TLUser extends TLAbsUser {
 
     protected String langCode;
 
-    private final String _constructor = "user#2e13f4c3";
+    private final String _constructor = "user#3ff6ecb0";
 
     public TLUser() {
     }
 
-    public TLUser(boolean self, boolean contact, boolean mutualContact, boolean deleted, boolean bot, boolean botChatHistory, boolean botNochats, boolean verified, boolean restricted, boolean min, boolean botInlineGeo, int id, Long accessHash, String firstName, String lastName, String username, String phone, TLAbsUserProfilePhoto photo, TLAbsUserStatus status, Integer botInfoVersion, String restrictionReason, String botInlinePlaceholder, String langCode) {
+    public TLUser(boolean self, boolean contact, boolean mutualContact, boolean deleted, boolean bot, boolean botChatHistory, boolean botNochats, boolean verified, boolean restricted, boolean min, boolean botInlineGeo, long id, Long accessHash, String firstName, String lastName, String username, String phone, TLAbsUserProfilePhoto photo, TLAbsUserStatus status, Integer botInfoVersion, String restrictionReason, String botInlinePlaceholder, String langCode) {
         this.self = self;
         this.contact = contact;
         this.mutualContact = mutualContact;
@@ -139,7 +139,7 @@ public class TLUser extends TLAbsUser {
         computeFlags();
 
         writeInt(flags, stream);
-        writeInt(id, stream);
+        writeLong(id, stream);
         if ((flags & 1) != 0) {
             if (accessHash == null) throwNullFieldException("accessHash", flags);
             writeLong(accessHash, stream);
@@ -367,7 +367,7 @@ public class TLUser extends TLAbsUser {
         this.botInlineGeo = botInlineGeo;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
