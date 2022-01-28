@@ -31,7 +31,7 @@ public class TLInputPeerChannel extends TLAbsInputPeer {
     public TLInputPeerChannel() {
     }
 
-    public TLInputPeerChannel(int channelId, long accessHash) {
+    public TLInputPeerChannel(long channelId, long accessHash) {
         this.channelId = channelId;
         this.accessHash = accessHash;
     }

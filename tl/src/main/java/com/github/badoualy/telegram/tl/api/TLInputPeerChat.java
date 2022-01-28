@@ -24,7 +24,7 @@ public class TLInputPeerChat extends TLAbsInputPeer {
     public TLInputPeerChat() {
     }
 
-    public TLInputPeerChat(int chatId) {
+    public TLInputPeerChat(long chatId) {
         this.chatId = chatId;
     }
 

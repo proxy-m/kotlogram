@@ -5,7 +5,7 @@ import com.github.badoualy.telegram.tl.api.TLPeerChannel
 import com.github.badoualy.telegram.tl.api.TLPeerChat
 import com.github.badoualy.telegram.tl.api.TLPeerUser
 
-val TLAbsPeer.id: Int?
+val TLAbsPeer.id: Long?
     get() = when (this) {
         is TLPeerUser -> userId
         is TLPeerChat -> chatId

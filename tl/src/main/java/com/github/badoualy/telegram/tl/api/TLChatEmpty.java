@@ -8,6 +8,7 @@ import java.io.OutputStream;
 
 import static com.github.badoualy.telegram.tl.StreamUtils.readInt;
 import static com.github.badoualy.telegram.tl.StreamUtils.writeInt;
+import static com.github.badoualy.telegram.tl.StreamUtils.writeLong;
 import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_CONSTRUCTOR_ID;
 import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_INT32;
 
@@ -30,7 +31,7 @@ public class TLChatEmpty extends TLAbsChat {
 
     @Override
     public void serializeBody(OutputStream stream) throws IOException {
-        writeInt(id, stream);
+        writeLong(id, stream);
     }
 
     @Override
@@ -56,7 +57,7 @@ public class TLChatEmpty extends TLAbsChat {
         return CONSTRUCTOR_ID;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

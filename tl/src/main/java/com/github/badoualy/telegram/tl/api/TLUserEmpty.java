@@ -19,7 +19,7 @@ import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_INT32;
  */
 public class TLUserEmpty extends TLAbsUser {
 
-    public static final int CONSTRUCTOR_ID = 0x200250ba;
+    public static final int CONSTRUCTOR_ID = 0xd3bc4b7a;
 
     private final String _constructor = "userEmpty#d3bc4b7a";
 

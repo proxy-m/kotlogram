@@ -59,7 +59,7 @@ public class TLChannelForbidden extends TLAbsChat {
         computeFlags();
 
         writeInt(flags, stream);
-        writeInt(id, stream);
+        writeLong(id, stream);
         writeLong(accessHash, stream);
         writeString(title, stream);
     }
@@ -113,7 +113,7 @@ public class TLChannelForbidden extends TLAbsChat {
         this.megagroup = megagroup;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
