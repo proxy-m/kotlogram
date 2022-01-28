@@ -45,7 +45,7 @@
     "restrictionReason": "AhRrtfx609okvWe",
     "botInlinePlaceholder": "gGhm0G0InocCaKUL",
     "langCode": "nRHVo2cgqWVcckcpjimfXRGJfbJ",
-    "_constructor": "user#2e13f4c3",
+    "_constructor": "user#3ff6ecb0",
     "id": 0
   },
   "about": "X6Z1YCT75PjtRX",
@@ -57,7 +57,7 @@
       "_constructor": "contactLinkUnknown#5f4f9247"
     },
     "user": {
-      "_constructor": "userEmpty#200250ba",
+      "_constructor": "userEmpty#d3bc4b7a",
       "id": 0
     },
     "_constructor": "contacts.link#3ace484c"

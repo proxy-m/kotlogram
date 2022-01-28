@@ -19,32 +19,40 @@ import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_INT32;
  */
 public class TLUpdateReadHistoryInbox extends TLAbsUpdate {
 
-    public static final int CONSTRUCTOR_ID = 0x9961fd5c;
+    public static final int CONSTRUCTOR_ID = 0x9c974fdf;
 
-    protected TLAbsPeer peer;
+    protected int folderId;
 
-    protected int maxId;
+    protected TLAbsPeer peer = new TLPeerChat();
 
-    protected int pts;
+    protected int maxId = 0;
 
-    protected int ptsCount;
+    protected int stillUnreadCount = 0;
 
-    private final String _constructor = "updateReadHistoryInbox#9961fd5c";
+    protected int pts = 0;
+
+    protected int ptsCount = 0;
+
+    private final String _constructor = "updateReadHistoryInbox#9c974fdf";
 
     public TLUpdateReadHistoryInbox() {
     }
 
-    public TLUpdateReadHistoryInbox(TLAbsPeer peer, int maxId, int pts, int ptsCount) {
+    public TLUpdateReadHistoryInbox(int folderId, TLAbsPeer peer, int maxId, int stillUnreadCount, int pts, int ptsCount) {
+        this.folderId = folderId;
         this.peer = peer;
         this.maxId = maxId;
+        this.stillUnreadCount = stillUnreadCount;
         this.pts = pts;
         this.ptsCount = ptsCount;
     }
 
     @Override
     public void serializeBody(OutputStream stream) throws IOException {
+        writeInt(folderId, stream);
         writeTLObject(peer, stream);
         writeInt(maxId, stream);
+        writeInt(stillUnreadCount, stream);
         writeInt(pts, stream);
         writeInt(ptsCount, stream);
     }
@@ -52,8 +60,10 @@ public class TLUpdateReadHistoryInbox extends TLAbsUpdate {
     @Override
     @SuppressWarnings({"unchecked", "SimplifiableConditionalExpression"})
     public void deserializeBody(InputStream stream, TLContext context) throws IOException {
+        folderId = readInt(stream);
         peer = readTLObject(stream, context, TLAbsPeer.class, -1);
         maxId = readInt(stream);
+        stillUnreadCount = readInt(stream);
         pts = readInt(stream);
         ptsCount = readInt(stream);
     }
@@ -61,7 +71,9 @@ public class TLUpdateReadHistoryInbox extends TLAbsUpdate {
     @Override
     public int computeSerializedSize() {
         int size = SIZE_CONSTRUCTOR_ID;
+        size += SIZE_INT32;
         size += peer.computeSerializedSize();
+        size += SIZE_INT32;
         size += SIZE_INT32;
         size += SIZE_INT32;
         size += SIZE_INT32;
@@ -78,6 +90,10 @@ public class TLUpdateReadHistoryInbox extends TLAbsUpdate {
         return CONSTRUCTOR_ID;
     }
 
+    public int getFolderId() { return folderId; }
+
+    public void setFolderId(int folderId) { this.folderId = folderId; }
+
     public TLAbsPeer getPeer() {
         return peer;
     }
@@ -93,6 +109,10 @@ public class TLUpdateReadHistoryInbox extends TLAbsUpdate {
     public void setMaxId(int maxId) {
         this.maxId = maxId;
     }
+
+    public int getStillUnreadCount() { return stillUnreadCount; }
+
+    public void setStillUnreadCount(int stillUnreadCount) { this.stillUnreadCount = stillUnreadCount; }
 
     public int getPts() {
         return pts;

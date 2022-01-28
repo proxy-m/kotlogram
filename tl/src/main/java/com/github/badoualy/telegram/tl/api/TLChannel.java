@@ -122,7 +122,7 @@ public class TLChannel extends TLAbsChat {
         computeFlags();
 
         writeInt(flags, stream);
-        writeInt(id, stream);
+        writeLong(id, stream);
         if ((flags & 8192) != 0) {
             if (accessHash == null) throwNullFieldException("accessHash", flags);
             writeLong(accessHash, stream);
@@ -299,7 +299,7 @@ public class TLChannel extends TLAbsChat {
         this.min = min;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

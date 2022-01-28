@@ -10,6 +10,7 @@ import static com.github.badoualy.telegram.tl.StreamUtils.readInt;
 import static com.github.badoualy.telegram.tl.StreamUtils.readTLObject;
 import static com.github.badoualy.telegram.tl.StreamUtils.readTLString;
 import static com.github.badoualy.telegram.tl.StreamUtils.writeInt;
+import static com.github.badoualy.telegram.tl.StreamUtils.writeLong;
 import static com.github.badoualy.telegram.tl.StreamUtils.writeString;
 import static com.github.badoualy.telegram.tl.StreamUtils.writeTLObject;
 import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_CONSTRUCTOR_ID;
@@ -87,7 +88,7 @@ public class TLChat extends TLAbsChat {
         computeFlags();
 
         writeInt(flags, stream);
-        writeInt(id, stream);
+        writeLong(id, stream);
         writeString(title, stream);
         writeTLObject(photo, stream);
         writeInt(participantsCount, stream);
@@ -195,7 +196,7 @@ public class TLChat extends TLAbsChat {
         this.deactivated = deactivated;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

@@ -16,6 +16,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.logging.Logger;
 import java.util.zip.GZIPInputStream;
 
 /**
@@ -108,8 +109,13 @@ public abstract class TLContext {
         try {
             if (clazz == null) {
                 clazz = registeredClasses.get(constructorId);
-                if (clazz == null)
+                if (clazz == null) {
+                    /*registeredClasses.forEach((key, value) -> {
+                        Logger.getGlobal().warning("Found registered class with key: " + key + ", class name: " + value.getSimpleName());
+                    });*/
+
                     throw new UnsupportedConstructorException(constructorId);
+                }
             }
 
             T message = clazz.getConstructor().newInstance();

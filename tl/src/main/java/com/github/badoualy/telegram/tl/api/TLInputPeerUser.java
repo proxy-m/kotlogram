@@ -31,7 +31,7 @@ public class TLInputPeerUser extends TLAbsInputPeer {
     public TLInputPeerUser() {
     }
 
-    public TLInputPeerUser(int userId, long accessHash) {
+    public TLInputPeerUser(long userId, long accessHash) {
         this.userId = userId;
         this.accessHash = accessHash;
     }
