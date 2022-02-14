@@ -480,6 +480,7 @@ public class TLApiTestContext extends TLContext {
         registerClass(TLPeerNotifySettings.CONSTRUCTOR_ID, TLPeerNotifySettings.class);
         registerClass(TLPeerNotifySettingsEmpty.CONSTRUCTOR_ID, TLPeerNotifySettingsEmpty.class);
         registerClass(TLPeerSettings.CONSTRUCTOR_ID, TLPeerSettings.class);
+        registerClass(TLUpdatePeerSettings.CONSTRUCTOR_ID, TLUpdatePeerSettings.class);
         registerClass(TLPeerUser.CONSTRUCTOR_ID, TLPeerUser.class);
         registerClass(com.github.badoualy.telegram.tl.api.phone.TLPhoneCall.CONSTRUCTOR_ID, com.github.badoualy.telegram.tl.api.phone.TLPhoneCall.class);
         registerClass(TLPhoneCall.CONSTRUCTOR_ID, TLPhoneCall.class);

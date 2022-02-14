@@ -37,10 +37,10 @@ class TLRestrictionReason() : TLObject() {
     }
 
     @Throws(IOException::class)
-    override fun deserializeBody(stream: InputStream, context: TLContext?) {
-        platform = stream.readBytes().toString()
-        reason = stream.readBytes().toString()
-        text = stream.readBytes().toString()
+    override fun deserializeBody(stream: InputStream?, context: TLContext?) {
+        platform = stream?.readBytes().toString()
+        reason = stream?.readBytes().toString()
+        text = stream?.readBytes().toString()
     }
 
     override fun computeSerializedSize(): Int {

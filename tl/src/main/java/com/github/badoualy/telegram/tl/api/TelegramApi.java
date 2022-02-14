@@ -65,6 +65,7 @@ import com.github.badoualy.telegram.tl.core.TLIntVector;
 import com.github.badoualy.telegram.tl.core.TLLongVector;
 import com.github.badoualy.telegram.tl.core.TLMethod;
 import com.github.badoualy.telegram.tl.core.TLObject;
+import com.github.badoualy.telegram.tl.core.TLObjectVector;
 import com.github.badoualy.telegram.tl.core.TLStringVector;
 import com.github.badoualy.telegram.tl.core.TLVector;
 import com.github.badoualy.telegram.tl.exception.RpcErrorException;
@@ -513,4 +514,8 @@ public interface TelegramApi {
     TLUserFull usersGetFullUser(TLAbsInputUser id) throws RpcErrorException, IOException;
 
     TLVector<TLAbsUser> usersGetUsers(TLVector<TLAbsInputUser> id) throws RpcErrorException, IOException;
+
+    TLUpdatePeerSettings tlUpdatePeerSettings(TLAbsPeer peer, TLPeerSettings settings) throws RpcErrorException, IOException;
+
+    TLUpdates tlUpdates(TLObjectVector<TLAbsUpdate> updates, TLObjectVector<TLAbsUser> users, TLObjectVector<TLAbsChat> chats, int date, int seq);
 }

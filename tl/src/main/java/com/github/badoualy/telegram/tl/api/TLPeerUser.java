@@ -18,11 +18,11 @@ import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_INT32;
  */
 public class TLPeerUser extends TLAbsPeer {
 
-    public static final int CONSTRUCTOR_ID = 0x9db1bc6d;
+    public static final int CONSTRUCTOR_ID = 0x59511722;
 
     protected long userId;
 
-    private final String _constructor = "peerUser#9db1bc6d";
+    private final String _constructor = "peerUser#59511722";
 
     public TLPeerUser() {
     }

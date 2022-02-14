@@ -1,6 +1,7 @@
 package com.github.badoualy.telegram.tl.api;
 
 import com.github.badoualy.telegram.tl.TLContext;
+import com.github.badoualy.telegram.tl.core.TLObjectVector;
 import com.github.badoualy.telegram.tl.core.TLVector;
 
 import java.io.IOException;
@@ -22,11 +23,11 @@ public class TLUpdates extends TLAbsUpdates {
 
     public static final int CONSTRUCTOR_ID = 0x74ae4240;
 
-    protected TLVector<TLAbsUpdate> updates;
+    protected TLObjectVector<TLAbsUpdate> updates;
 
-    protected TLVector<TLAbsUser> users;
+    protected TLObjectVector<TLAbsUser> users;
 
-    protected TLVector<TLAbsChat> chats;
+    protected TLObjectVector<TLAbsChat> chats;
 
     protected int date;
 
@@ -37,7 +38,7 @@ public class TLUpdates extends TLAbsUpdates {
     public TLUpdates() {
     }
 
-    public TLUpdates(TLVector<TLAbsUpdate> updates, TLVector<TLAbsUser> users, TLVector<TLAbsChat> chats, int date, int seq) {
+    public TLUpdates(TLObjectVector<TLAbsUpdate> updates, TLObjectVector<TLAbsUser> users, TLObjectVector<TLAbsChat> chats, int date, int seq) {
         this.updates = updates;
         this.users = users;
         this.chats = chats;
@@ -57,9 +58,9 @@ public class TLUpdates extends TLAbsUpdates {
     @Override
     @SuppressWarnings({"unchecked", "SimplifiableConditionalExpression"})
     public void deserializeBody(InputStream stream, TLContext context) throws IOException {
-        updates = readTLVector(stream, context);
-        users = readTLVector(stream, context);
-        chats = readTLVector(stream, context);
+        updates = (TLObjectVector<TLAbsUpdate>) readTLVector(stream, context);
+        users = (TLObjectVector<TLAbsUser>) readTLVector(stream, context);
+        chats = (TLObjectVector<TLAbsChat>) readTLVector(stream, context);
         date = readInt(stream);
         seq = readInt(stream);
     }
@@ -85,27 +86,27 @@ public class TLUpdates extends TLAbsUpdates {
         return CONSTRUCTOR_ID;
     }
 
-    public TLVector<TLAbsUpdate> getUpdates() {
+    public TLObjectVector<TLAbsUpdate> getUpdates() {
         return updates;
     }
 
-    public void setUpdates(TLVector<TLAbsUpdate> updates) {
+    public void setUpdates(TLObjectVector<TLAbsUpdate> updates) {
         this.updates = updates;
     }
 
-    public TLVector<TLAbsUser> getUsers() {
+    public TLObjectVector<TLAbsUser> getUsers() {
         return users;
     }
 
-    public void setUsers(TLVector<TLAbsUser> users) {
+    public void setUsers(TLObjectVector<TLAbsUser> users) {
         this.users = users;
     }
 
-    public TLVector<TLAbsChat> getChats() {
+    public TLObjectVector<TLAbsChat> getChats() {
         return chats;
     }
 
-    public void setChats(TLVector<TLAbsChat> chats) {
+    public void setChats(TLObjectVector<TLAbsChat> chats) {
         this.chats = chats;
     }
 

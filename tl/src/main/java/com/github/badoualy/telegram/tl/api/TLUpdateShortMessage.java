@@ -1,6 +1,7 @@
 package com.github.badoualy.telegram.tl.api;
 
 import com.github.badoualy.telegram.tl.TLContext;
+import com.github.badoualy.telegram.tl.core.TLObjectVector;
 import com.github.badoualy.telegram.tl.core.TLVector;
 
 import java.io.IOException;
@@ -8,15 +9,18 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import static com.github.badoualy.telegram.tl.StreamUtils.readInt;
+import static com.github.badoualy.telegram.tl.StreamUtils.readLong;
 import static com.github.badoualy.telegram.tl.StreamUtils.readTLObject;
 import static com.github.badoualy.telegram.tl.StreamUtils.readTLString;
 import static com.github.badoualy.telegram.tl.StreamUtils.readTLVector;
 import static com.github.badoualy.telegram.tl.StreamUtils.writeInt;
+import static com.github.badoualy.telegram.tl.StreamUtils.writeLong;
 import static com.github.badoualy.telegram.tl.StreamUtils.writeString;
 import static com.github.badoualy.telegram.tl.StreamUtils.writeTLObject;
 import static com.github.badoualy.telegram.tl.StreamUtils.writeTLVector;
 import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_CONSTRUCTOR_ID;
 import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_INT32;
+import static com.github.badoualy.telegram.tl.TLObjectUtils.SIZE_INT64;
 import static com.github.badoualy.telegram.tl.TLObjectUtils.computeTLStringSerializedSize;
 
 /**
@@ -25,7 +29,7 @@ import static com.github.badoualy.telegram.tl.TLObjectUtils.computeTLStringSeria
  */
 public class TLUpdateShortMessage extends TLAbsUpdates {
 
-    public static final int CONSTRUCTOR_ID = 0x914fbf11;
+    public static final int CONSTRUCTOR_ID = 0x313bc7f8;
 
     protected int flags;
 
@@ -39,7 +43,7 @@ public class TLUpdateShortMessage extends TLAbsUpdates {
 
     protected int id;
 
-    protected int userId;
+    protected long userId;
 
     protected String message;
 
@@ -51,18 +55,25 @@ public class TLUpdateShortMessage extends TLAbsUpdates {
 
     protected TLMessageFwdHeader fwdFrom;
 
-    protected Integer viaBotId;
+    protected Long viaBotId;
 
-    protected Integer replyToMsgId;
+    protected TLMessageReplyHeader replyTo;
+
+    //protected Integer replyToMsgId;
 
     protected TLVector<TLAbsMessageEntity> entities;
 
-    private final String _constructor = "updateShortMessage#914fbf11";
+    protected Integer ttlPeriod;
+
+    private final String _constructor = "updateShortMessage#313bc7f8";
 
     public TLUpdateShortMessage() {
     }
 
-    public TLUpdateShortMessage(boolean out, boolean mentioned, boolean mediaUnread, boolean silent, int id, int userId, String message, int pts, int ptsCount, int date, TLMessageFwdHeader fwdFrom, Integer viaBotId, Integer replyToMsgId, TLVector<TLAbsMessageEntity> entities) {
+    public TLUpdateShortMessage(boolean out, boolean mentioned, boolean mediaUnread, boolean silent,
+                                int id, long userId, String message, int pts, int ptsCount, int date,
+                                TLMessageFwdHeader fwdFrom, long viaBotId, TLMessageReplyHeader replyTo,
+                                TLVector<TLAbsMessageEntity> entities, int ttlPeriod) {
         this.out = out;
         this.mentioned = mentioned;
         this.mediaUnread = mediaUnread;
@@ -75,8 +86,9 @@ public class TLUpdateShortMessage extends TLAbsUpdates {
         this.date = date;
         this.fwdFrom = fwdFrom;
         this.viaBotId = viaBotId;
-        this.replyToMsgId = replyToMsgId;
+        this.replyTo = replyTo;
         this.entities = entities;
+        this.ttlPeriod = ttlPeriod;
     }
 
     private void computeFlags() {
@@ -87,8 +99,9 @@ public class TLUpdateShortMessage extends TLAbsUpdates {
         flags = silent ? (flags | 8192) : (flags & ~8192);
         flags = fwdFrom != null ? (flags | 4) : (flags & ~4);
         flags = viaBotId != null ? (flags | 2048) : (flags & ~2048);
-        flags = replyToMsgId != null ? (flags | 8) : (flags & ~8);
+        flags = replyTo != null ? (flags | 8) : (flags & ~8);
         flags = entities != null ? (flags | 128) : (flags & ~128);
+        flags = ttlPeriod != null ? (flags | 33554432) : (flags & ~33554432);
     }
 
     @Override
@@ -97,7 +110,7 @@ public class TLUpdateShortMessage extends TLAbsUpdates {
 
         writeInt(flags, stream);
         writeInt(id, stream);
-        writeInt(userId, stream);
+        writeLong(userId, stream);
         writeString(message, stream);
         writeInt(pts, stream);
         writeInt(ptsCount, stream);
@@ -108,15 +121,19 @@ public class TLUpdateShortMessage extends TLAbsUpdates {
         }
         if ((flags & 2048) != 0) {
             if (viaBotId == null) throwNullFieldException("viaBotId", flags);
-            writeInt(viaBotId, stream);
+            writeLong(viaBotId, stream);
         }
         if ((flags & 8) != 0) {
-            if (replyToMsgId == null) throwNullFieldException("replyToMsgId", flags);
-            writeInt(replyToMsgId, stream);
+            if (replyTo == null) throwNullFieldException("replyTo", flags);
+            writeTLObject(replyTo, stream);
         }
         if ((flags & 128) != 0) {
             if (entities == null) throwNullFieldException("entities", flags);
             writeTLVector(entities, stream);
+        }
+        if ((flags & 33554432) != 0) {
+            if (ttlPeriod == null) throwNullFieldException("ttlPeriod", flags);
+            writeInt(ttlPeriod, stream);
         }
     }
 
@@ -136,9 +153,11 @@ public class TLUpdateShortMessage extends TLAbsUpdates {
         date = readInt(stream);
         fwdFrom = (flags & 4) != 0 ? readTLObject(stream, context, TLMessageFwdHeader.class,
                                                   TLMessageFwdHeader.CONSTRUCTOR_ID) : null;
-        viaBotId = (flags & 2048) != 0 ? readInt(stream) : null;
-        replyToMsgId = (flags & 8) != 0 ? readInt(stream) : null;
+        viaBotId = (flags & 2048) != 0 ? readLong(stream) : null;
+        replyTo = (flags & 8) != 0 ? readTLObject(stream, context, TLMessageReplyHeader.class,
+                                                TLMessageReplyHeader.CONSTRUCTOR_ID) : null;
         entities = (flags & 128) != 0 ? readTLVector(stream, context) : null;
+        ttlPeriod = (flags & 33554432) != 0 ? readInt(stream) : null;
     }
 
     @Override
@@ -159,15 +178,19 @@ public class TLUpdateShortMessage extends TLAbsUpdates {
         }
         if ((flags & 2048) != 0) {
             if (viaBotId == null) throwNullFieldException("viaBotId", flags);
-            size += SIZE_INT32;
+            size += SIZE_INT64;
         }
         if ((flags & 8) != 0) {
-            if (replyToMsgId == null) throwNullFieldException("replyToMsgId", flags);
-            size += SIZE_INT32;
+            if (replyTo == null) throwNullFieldException("replyToMsgId", flags);
+            size += replyTo.computeSerializedSize();
         }
         if ((flags & 128) != 0) {
             if (entities == null) throwNullFieldException("entities", flags);
             size += entities.computeSerializedSize();
+        }
+        if ((flags & 33554432) != 0) {
+            if (ttlPeriod == null) throwNullFieldException("ttlPeriod", flags);
+            size += SIZE_INT32;
         }
         return size;
     }
@@ -222,11 +245,11 @@ public class TLUpdateShortMessage extends TLAbsUpdates {
         this.id = id;
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 
@@ -270,21 +293,21 @@ public class TLUpdateShortMessage extends TLAbsUpdates {
         this.fwdFrom = fwdFrom;
     }
 
-    public Integer getViaBotId() {
+    public Long getViaBotId() {
         return viaBotId;
     }
 
-    public void setViaBotId(Integer viaBotId) {
+    public void setViaBotId(Long viaBotId) {
         this.viaBotId = viaBotId;
     }
 
-    public Integer getReplyToMsgId() {
-        return replyToMsgId;
-    }
+    public TLMessageReplyHeader getReplyTo() { return replyTo; }
 
-    public void setReplyToMsgId(Integer replyToMsgId) {
-        this.replyToMsgId = replyToMsgId;
-    }
+    public void setReplyTo(TLMessageReplyHeader replyTo) { this.replyTo = replyTo; }
+
+    public Integer getTtlPeriod() { return ttlPeriod; }
+
+    public void setTtlPeriod(Integer ttlPeriod) { this.ttlPeriod = ttlPeriod; }
 
     public TLVector<TLAbsMessageEntity> getEntities() {
         return entities;
